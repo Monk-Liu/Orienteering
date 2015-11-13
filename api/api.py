@@ -166,6 +166,7 @@
     {
         "status":1,
         "data":[{},{},{}]
+        //data 里面每个元素 都是 {"postion":(111,40),"task":"XXXXXXXX"} 的形式
     }
 @apiUse MyError
 
