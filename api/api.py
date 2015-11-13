@@ -97,7 +97,7 @@
         "data":{
             "nickname":"panda",
             "sex":"male",
-            ...
+            "image":"http://run.monkliu.me:8888/static/1.jpg"
         }
     }
 
@@ -125,7 +125,7 @@
         "data":{
             "nickname":"panda",
             "sex":"male",
-            ...
+            "image":"http://run.monkliu.me:8888/staitc/1.jpg"
         }
     }
 
@@ -166,7 +166,7 @@
     {
         "status":1,
         "data":[{},{},{}]
-        //data 里面每个元素 都是 {"postion":(111,40),"task":"XXXXXXXX"} 的形式
+        //data 里面每个元素 都是 {"position":(111,40),"task":"XXXXXXXX"} 的形式
     }
 @apiUse MyError
 
@@ -247,6 +247,7 @@
     {
         "status":1,
         "data":[{},{},{}...]
+        //data 里面每个元素 都是 {"position":(111,40),"task":"XXXXXXXX"} 的形式
     }
     
 @apiError {Number} status 失败返回 2
