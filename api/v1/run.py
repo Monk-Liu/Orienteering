@@ -1,16 +1,16 @@
 import tornado.web
 import os
+from url import handlers
 import tornado.ioloop
 import tornado.httpserver
 import argparse
 
-TEMPLATE_PATH = os.path.join(os.getcwd(),'doc')
-STATIC_PATH = os.path.join(os.getcwd(),'doc')
+TEMPLATE_PATH = os.path.join(os.getcwd(),'static')
+STATIC_PATH = os.path.join(os.getcwd(),'static')
 
 class Application( tornado.web.Application ):
 
     def __init__(self):
-        handlers = []
 
         settings = dict(
                 #template_path = TEMPLATE_PATH,
