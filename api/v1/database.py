@@ -1,6 +1,6 @@
 from config import SQLINFO
 import sqlalchemy
-from sqlalchemy import Column,Integer,String,Text,DateTime
+from sqlalchemy import Column,Integer,String,Text,DateTime,Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker,relationship,backref
 from sqlalchemy.schema import Table,ForeignKey
@@ -55,11 +55,12 @@ class UserInfo(Base):
     id = Column(Integer,primary_key=True)
     nickname = Column(String(60))
     #so what the lambda used for? http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#one-to-one
-    event_id = relationship('Event',
+    join_event = relationship('Event',
                               secondary=lambda:UserEventTable, 
                               backref='participator',
                               passive_deletes = True
                               )
+    host_event = relationship('Event',backref='hoster',passive_deletes=True)
 
     def __init__(self,nickname):
         self.nickname = nickname
@@ -69,9 +70,18 @@ class Event(Base):
 
     id = Column(String(50),primary_key=True)
     title = Column(Text)
+    loc_x =  Column(Float)
+    loc_y = Column(Float)
+    loc_province = Column(String(20))
     desc = Column(Text)  
+    people_limit = Column(Integer)
+    people_current= Column(Integer)
     date = Column(DateTime)
-    eventdetail = relationship("EventDetail",uselist=False,backref="event")
+    type = Column(Integer) 
+    logo = Column(String(3000))
+    host = Column(Integer,ForeignKey('userinfo.id'))
+    eventdetail = relationship("EventDetail",uselist=False,backref="detail_event")
+    points = relationship("Points",backref='point_event',cascade='save-update,merge,delete')
     userinfo_id = relationship(
             'UserInfo',
             secondary=lambda:UserEventTable,
@@ -87,12 +97,21 @@ class Event(Base):
     def __repr__(self):
         return "<Event (id='%s',title='%s')"%(self.id,self.title)
 
+class Points(Base):
+    __tablename__ = 'points'
+
+    id = Column(Integer,primary_key=True)
+    x = Column(Float)
+    y = Column(Float)
+    message = Column(Text())
+    radius = Column(Float)
+    event_re = Column(String(50),ForeignKey('events.id'))
 
 class EventDetail(Base):
     __tablename__ = 'eventdetail'
 
     id = Column(Integer,primary_key=True)
-    event_id = Column(String(50),ForeignKey('events.id'))
+    event_re = Column(String(50),ForeignKey('events.id'))
     
 
 UserEventTable = Table('user_event',Base.metadata,
