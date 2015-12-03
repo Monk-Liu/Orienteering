@@ -190,7 +190,7 @@
 @apiGroup Activities
 
 @apiParam {String} key 用户识别符
-@apiParam {String} position 用来识别地理位置的参数，省份/城市/ 经纬度
+@apiParam {String} data 用来识别地理位置的参数，省份/城市/ 经纬度
 @apiParamExample Request-Example:
     {
         "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",  //这个感觉可有可无
