@@ -6,6 +6,7 @@ from sqlalchemy.orm import sessionmaker,relationship,backref
 from sqlalchemy.schema import Table,ForeignKey
 import redis
 import uuid
+from utils import encrytovalue
 
 
 
@@ -41,19 +42,24 @@ class User(Base):
     info = relationship('UserInfo',backref=backref('user',uselist=False))
 
     def __init__(self,phone,password):
-        self.phone = phone
+        self.phone = str(phone)
         self.id = str(uuid.uuid4())
-        self.password = ''
+        self.password = encrytovalue(password)
 
     def __repr__(self):
-        return "<User (name='%s',id='%s')"%(self.name,self.id)
+        return "<User (phone='%s',id='%s')"%(self.phone,self.id)
 
 
 class UserInfo(Base):
     __tablename__ = 'userinfo'
 
     id = Column(Integer,primary_key=True)
+    user_id = Column(String(50),ForeignKey('users.id'))
     nickname = Column(String(60))
+    img_url = Column(String(3000))
+    #img_url 没有做短url的必要吗？
+    age = Column(Integer)
+    sex = Column(Integer)
     #so what the lambda used for? http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#one-to-one
     join_event = relationship('Event',
                               secondary=lambda:UserEventTable, 
@@ -62,9 +68,20 @@ class UserInfo(Base):
                               )
     host_event = relationship('Event',backref='hoster',passive_deletes=True)
 
-    def __init__(self,nickname):
+    def __init__(self,nickname='匿名',img_url='/static/common.jpg',sex=1,age=20):
         self.nickname = nickname
-    
+        self.img_url = img_url
+        self.sex = sex
+        self.age = age
+
+    '''
+    def change_info(self,nickname,img_url,sex,age):
+        self.nickname = nickname
+        self.img_url = img_url
+        self.sex = sex
+        self.age = age
+    '''
+
 class Event(Base):
     __tablename__ = 'events'
 
@@ -73,6 +90,9 @@ class Event(Base):
     loc_x =  Column(Float)
     loc_y = Column(Float)
     loc_province = Column(String(20))
+    loc_distract = Column(String(1000))
+    loc_city = Column(Integer)
+    loc_road = Column(String(400))
     desc = Column(Text)  
     people_limit = Column(Integer)
     people_current= Column(Integer)
@@ -89,10 +109,22 @@ class Event(Base):
             passive_deletes = True
         )
 
-    def __init__(self,title,desc,date):
+    def __init__(self,title=None,desc=None,date=None,
+        loc_x=None,loc_y=None,loc_province=None,people_limit=50,
+        loc_distract=None,loc_road=None,loc_city=None,logo=None,host=None):
         self.title = title
         self.desc = desc
-        self.data = date
+        self.date = date
+        self.loc_x = loc_x
+        self.loc_y = loc_y
+        self.loc_province = loc_province
+        self.loc_road = loc_road
+        self.loc_distract = loc_distract
+        self.loc_city = loc_city
+        self.people_limit = people_limit
+        self.people_current = 1
+        self.logo = logo
+        self.host = host 
 
     def __repr__(self):
         return "<Event (id='%s',title='%s')"%(self.id,self.title)
@@ -105,7 +137,15 @@ class Points(Base):
     y = Column(Float)
     message = Column(Text())
     radius = Column(Float)
+    type = Column(Integer)
     event_re = Column(String(50),ForeignKey('events.id'))
+
+    def __init__(self,x=None,y=None,message=None,radius=None,type=1):
+        self.x = x
+        self.y = y
+        self.radius = radius
+        self.message = message
+        self.type=type
 
 class EventDetail(Base):
     __tablename__ = 'eventdetail'
