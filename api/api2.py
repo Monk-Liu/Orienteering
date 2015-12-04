@@ -189,7 +189,7 @@
 """"""
 
 """"""
-@api {post} /activities 发起活动
+@api {post} /activities/ 发起活动
 @apiName AddActivity
 @apiVersion 0.2.0
 @apiGroup Activities
@@ -224,7 +224,7 @@
 """"""
 
 """"""
-@api {delete} /activities/ 删除活动
+@api {get} /activity/ 删除活动
 @apiName DelActivity
 @apiVersion 0.2.0
 @apiGroup Activities

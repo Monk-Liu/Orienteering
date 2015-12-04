@@ -1,7 +1,7 @@
 [
   {
     "type": "post",
-    "url": "/activities",
+    "url": "/activities/",
     "title": "发起活动",
     "name": "AddActivity",
     "version": "0.2.0",
@@ -151,8 +151,8 @@
     }
   },
   {
-    "type": "delete",
-    "url": "/activities/",
+    "type": "get",
+    "url": "/activity/",
     "title": "删除活动",
     "name": "DelActivity",
     "version": "0.2.0",
@@ -537,90 +537,6 @@
         {
           "title": "Response 200:",
           "content": "{\n    \"status\":1\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "type": "<p>Number</p> ",
-            "optional": false,
-            "field": "status",
-            "description": "<p>失败返回 2</p> "
-          },
-          {
-            "group": "Error 4xx",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "mesg",
-            "description": "<p>错误信息</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response:",
-          "content": "{\n    \"status\":2,\n    \"mesg\":\"xxxxx\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "api/api.py",
-    "groupTitle": "ActivityDetail"
-  },
-  {
-    "type": "get",
-    "url": "/activity/:id",
-    "title": "活动具体信息",
-    "name": "________",
-    "version": "0.1.0",
-    "group": "ActivityDetail",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "key",
-            "description": "<p>用户标识符</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "<p>Number</p> ",
-            "optional": false,
-            "field": "status",
-            "description": "<p>成功返回1</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Object</p> ",
-            "optional": false,
-            "field": "data",
-            "description": "<p>包括每个点的信息</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response 200 :",
-          "content": "{\n    \"status\":1,\n    \"data\":[{},{},{}...]\n    //data 里面每个元素 都是 {\"position\":(111,40),\"task\":\"XXXXXXXX\"} 的形式\n}",
           "type": "json"
         }
       ]

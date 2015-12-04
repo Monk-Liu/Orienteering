@@ -229,35 +229,6 @@
 @apiUse MyError
 """"""
 
-""""""
-@api {get} /activity/:id 活动具体信息
-@apiName 活动信息（具体）
-@apiVersion 0.1.0
-@apiGroup ActivityDetail
-
-@apiParam {String} key 用户标识符
-@apiParamExample Request-Example:
-    {
-        "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
-    }
-
-@apiSuccess {Number} status 成功返回1
-@apiSuccess {Object} data 包括每个点的信息
-@apiSuccessExample Response 200 :
-    {
-        "status":1,
-        "data":[{},{},{}...]
-        //data 里面每个元素 都是 {"position":(111,40),"task":"XXXXXXXX"} 的形式
-    }
-    
-@apiError {Number} status 失败返回 2
-@apiError {String} mesg 错误信息
-@apiErrorExample Response:
-    {
-        "status":2,
-        "mesg":"xxxxx"
-    }
-""""""
 
 """"""
 @api {post} /activity/ 加入活动
