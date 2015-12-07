@@ -1,4 +1,4 @@
-from handlers import BaseHandler,JSONHandler
+from handlers import BaseHandler,JSONHandler,B64Handler
 from tornado import gen,httpclient
 from config import GEETEST,LEANCLOUD
 from hashlib import md5 
@@ -77,7 +77,7 @@ class GeetestVerifyHandler(BaseHandler):
             self.write('fail')
     
 
-class LeanCloudVerifyHandler(JSONHandler):
+class LeanCloudVerifyHandler(B64Handler):
 
     @gen.coroutine
     def sendSMS(self,phone):
@@ -112,6 +112,7 @@ class LeanCloudVerifyHandler(JSONHandler):
 
     @gen.coroutine
     def verifySMS(self,code,phone):
+        print(code,phone)
         url = LEANCLOUD['VURL']%(code,phone)
         print(url)
         data = json.dumps({"code":code,"mobilePhoneNumber":phone}) # why body can't be None?
@@ -130,9 +131,11 @@ class LeanCloudVerifyHandler(JSONHandler):
 
     @gen.coroutine
     def post(self):
+        print(self.json_args)
         phone = self.json_args['phone'] 
-        code = self.json_args['code']
+        code = self.json_args['verify']
         password = self.json_args['password']
+        print(phone,code,password)
         res = yield self.verifySMS(code,phone)
         if not res:
             user = User(phone,password)

@@ -171,6 +171,7 @@
         "local":[{},{}...]
         /*{
             "name":"华科僵尸跑",
+            "id":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
             "people_limit":50,
             "people_current":20,
             "stime":"2015-11-12 00:00",
@@ -231,11 +232,11 @@
 @apiPermission admin
 
 @apiParam {String} key 用户标识符
-@apiParam {String} activity-id 活动标识符
+@apiParam {String} id 活动标识符
 @apiParamExample {json} Request-Example:
     {
         "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
-        "activity-id":"d5323e98-65f8-435b-a889-0c289f5835cb"
+        "id":"d5323e98-65f8-435b-a889-0c289f5835cb"
     }
 
 @apiSuccessExample Response 200:
@@ -246,14 +247,16 @@
     
 
 """"""
-@api {post} /activity/:activity-id 加入活动
+@api {post} /activity/ 加入活动
 @apiName 加入活动
 @apiVersion 0.2.0
 @apiGroup ActivityDetail
 
 @apiParam {String} key 用户标识符
+@apiParam {String} id 活动id
 @apiParamExample Request-Example:
     {
+        "id":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
         "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
     }
 

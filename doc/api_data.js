@@ -176,7 +176,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "<p>String</p> ",
             "optional": false,
-            "field": "activity-id",
+            "field": "id",
             "description": "<p>活动标识符</p> "
           }
         ]
@@ -184,7 +184,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"activity-id\":\"d5323e98-65f8-435b-a889-0c289f5835cb\"\n}",
+          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"id\":\"d5323e98-65f8-435b-a889-0c289f5835cb\"\n}",
           "type": "json"
         }
       ]
@@ -323,7 +323,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{\n    \"hot\":[{},{}...]\n    \"local\":[{},{}...]\n    /*{\n        \"name\":\"华科僵尸跑\",\n        \"people_limit\":50,\n        \"people_current\":20,\n        \"stime\":\"2015-11-12 00:00\",\n        \"duringtime\":\"60\"(分钟),\n        \"desc\":\"xxxxxxxxxxxx\"\n        \"spotlist\":[{},{},{}...]，\n        \"loc_x\":10.0,\n        \"loc_y\":10.0,\n        \"loc_province\":\"湖北\",\n        \"loc_road\":\"xxx\",\n        \"loc_city\":\"xxx\",\n    }*/\n}",
+          "content": "{\n    \"hot\":[{},{}...]\n    \"local\":[{},{}...]\n    /*{\n        \"name\":\"华科僵尸跑\",\n        \"id\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n        \"people_limit\":50,\n        \"people_current\":20,\n        \"stime\":\"2015-11-12 00:00\",\n        \"duringtime\":\"60\"(分钟),\n        \"desc\":\"xxxxxxxxxxxx\"\n        \"spotlist\":[{},{},{}...]，\n        \"loc_x\":10.0,\n        \"loc_y\":10.0,\n        \"loc_province\":\"湖北\",\n        \"loc_road\":\"xxx\",\n        \"loc_city\":\"xxx\",\n    }*/\n}",
           "type": "json"
         }
       ]
@@ -437,7 +437,7 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "/activity/:activity-id",
+    "url": "/activity/",
     "title": "加入活动",
     "name": "____",
     "version": "0.2.0",
@@ -451,13 +451,20 @@ define({ "api": [
             "optional": false,
             "field": "key",
             "description": "<p>用户标识符</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>活动id</p> "
           }
         ]
       },
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n}",
+          "content": "{\n    \"id\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n}",
           "type": "json"
         }
       ]

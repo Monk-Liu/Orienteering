@@ -97,6 +97,7 @@ class Event(Base):
     people_limit = Column(Integer)
     people_current= Column(Integer)
     date = Column(DateTime)
+    duringtime = Column(Integer)
     type = Column(Integer) 
     logo = Column(String(3000))
     host = Column(Integer,ForeignKey('userinfo.id'))
@@ -109,12 +110,13 @@ class Event(Base):
             passive_deletes = True
         )
 
-    def __init__(self,title=None,desc=None,date=None,
+    def __init__(self,title=None,desc=None,date=None,duringtime=60,
         loc_x=None,loc_y=None,loc_province=None,people_limit=50,
         loc_distract=None,loc_road=None,loc_city=None,logo=None,host=None):
         self.title = title
         self.desc = desc
         self.date = date
+        self.duringtime = duringtime
         self.loc_x = loc_x
         self.loc_y = loc_y
         self.loc_province = loc_province
