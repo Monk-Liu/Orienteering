@@ -10,7 +10,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Resquest-Example:",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"name\":\"华科僵尸跑\",\n    \"people_limit\":50,\n    \"stime\":\"2015-11-12 00:00\",\n    \"duringtime\":\"60\",\n    \"desc\":\"xxxxxxxxxxxx\"\n    \"spotlist\":[{},{},{}...]，\n    \"loc_x\":10.0,\n    \"loc_y\":10.0,\n    \"loc_province\":\"湖北\",\n    \"loc_road\":\"xxx\",\n    \"loc_city\":\"xxx\",\n    //关于 spotlist 里面的{}\n    /*{ \"x\":120.00,\n        \"y\":40.00,\n       \"type\":1,\n       \"radius\":100,\n       \"message\":\"xxxxx\",\n      }*/\n}",
+          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"name\":\"华科僵尸跑\",\n    \"people_limit\":50,\n    \"start_time\":\"2015-11-12 00:00\",\n    \"during_time\":\"60\",\n    \"description\":\"xxxxxxxxxxxx\"\n    \"spotlist\":[{},{},{}...]，\n    \"loc_x\":10.0,\n    \"loc_y\":10.0,\n    \"loc_province\":\"湖北\",\n    \"loc_road\":\"xxx\",\n    \"loc_city\":\"xxx\",\n    //关于 spotlist 里面的{}\n    /*{ \"x\":120.00,\n        \"y\":40.00,\n       \"type\":1,\n       \"radius\":100,\n       \"message\":\"xxxxx\",\n      }*/\n}",
           "type": "json"
         }
       ]
@@ -33,7 +33,7 @@ define({ "api": [
             "group": "Error 4xx",
             "type": "<p>String</p> ",
             "optional": false,
-            "field": "mesg",
+            "field": "message",
             "description": "<p>出错信息</p> "
           }
         ]
@@ -41,7 +41,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response 400:",
-          "content": "{\n    \"mesg\":\"错误信息（...）\"\n}",
+          "content": "{\n    \"message\":\"错误信息（...）\"\n}",
           "type": "json"
         }
       ]
@@ -136,7 +136,7 @@ define({ "api": [
             "group": "Error 4xx",
             "type": "<p>String</p> ",
             "optional": false,
-            "field": "mesg",
+            "field": "message",
             "description": "<p>出错信息</p> "
           }
         ]
@@ -144,7 +144,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response 400:",
-          "content": "{\n    \"mesg\":\"错误信息（...）\"\n}",
+          "content": "{\n    \"message\":\"错误信息（...）\"\n}",
           "type": "json"
         }
       ]
@@ -176,7 +176,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "<p>String</p> ",
             "optional": false,
-            "field": "id",
+            "field": "activity_id",
             "description": "<p>活动标识符</p> "
           }
         ]
@@ -184,7 +184,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"id\":\"d5323e98-65f8-435b-a889-0c289f5835cb\"\n}",
+          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"activity_id\":\"d5323e98-65f8-435b-a889-0c289f5835cb\"\n}",
           "type": "json"
         }
       ]
@@ -207,7 +207,7 @@ define({ "api": [
             "group": "Error 4xx",
             "type": "<p>String</p> ",
             "optional": false,
-            "field": "mesg",
+            "field": "message",
             "description": "<p>出错信息</p> "
           }
         ]
@@ -215,7 +215,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response 400:",
-          "content": "{\n    \"mesg\":\"错误信息（...）\"\n}",
+          "content": "{\n    \"message\":\"错误信息（...）\"\n}",
           "type": "json"
         }
       ]
@@ -289,7 +289,7 @@ define({ "api": [
             "group": "Error 4xx",
             "type": "<p>String</p> ",
             "optional": false,
-            "field": "mesg",
+            "field": "message",
             "description": "<p>出错信息</p> "
           }
         ]
@@ -297,7 +297,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response 400:",
-          "content": "{\n    \"mesg\":\"错误信息（...）\"\n}",
+          "content": "{\n    \"message\":\"错误信息（...）\"\n}",
           "type": "json"
         }
       ]
@@ -323,7 +323,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{\n    \"hot\":[{},{}...]\n    \"local\":[{},{}...]\n    /*{\n        \"name\":\"华科僵尸跑\",\n        \"id\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n        \"people_limit\":50,\n        \"people_current\":20,\n        \"stime\":\"2015-11-12 00:00\",\n        \"duringtime\":\"60\"(分钟),\n        \"desc\":\"xxxxxxxxxxxx\"\n        \"spotlist\":[{},{},{}...]，\n        \"loc_x\":10.0,\n        \"loc_y\":10.0,\n        \"loc_province\":\"湖北\",\n        \"loc_road\":\"xxx\",\n        \"loc_city\":\"xxx\",\n    }*/\n}",
+          "content": "{\n    \"hot\":[{},{}...]\n    \"local\":[{},{}...]\n    /*{\n        \"name\":\"华科僵尸跑\",\n        \"id\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n        \"people_limit\":50,\n        \"people_current\":20,\n        \"start_time\":\"2015-11-12 00:00\",\n        \"during_time\":\"60\"(分钟),\n        \"descriptioniption\":\"xxxxxxxxxxxx\"\n        \"spotlist\":[{},{},{}...]，\n        \"loc_x\":10.0,\n        \"loc_y\":10.0,\n        \"loc_province\":\"湖北\",\n        \"loc_road\":\"xxx\",\n        \"loc_city\":\"xxx\",\n    }*/\n}",
           "type": "json"
         }
       ]
@@ -337,7 +337,7 @@ define({ "api": [
             "group": "Error 4xx",
             "type": "<p>String</p> ",
             "optional": false,
-            "field": "mesg",
+            "field": "message",
             "description": "<p>出错信息</p> "
           }
         ]
@@ -345,7 +345,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response 400:",
-          "content": "{\n    \"mesg\":\"错误信息（...）\"\n}",
+          "content": "{\n    \"message\":\"错误信息（...）\"\n}",
           "type": "json"
         }
       ]
@@ -421,7 +421,7 @@ define({ "api": [
             "group": "Error 4xx",
             "type": "<p>String</p> ",
             "optional": false,
-            "field": "mesg",
+            "field": "message",
             "description": "<p>出错信息</p> "
           }
         ]
@@ -429,11 +429,57 @@ define({ "api": [
       "examples": [
         {
           "title": "Response 400:",
-          "content": "{\n    \"mesg\":\"错误信息（...）\"\n}",
+          "content": "{\n    \"message\":\"错误信息（...）\"\n}",
           "type": "json"
         }
       ]
     }
+  },
+  {
+    "type": "get",
+    "url": "/activity/finish/",
+    "title": "新加的完成任务的接口",
+    "name": "finish",
+    "version": "0.2.0",
+    "group": "Activities",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "key",
+            "description": "<p>用户标识符</p> "
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "activity_id",
+            "description": "<p>活动标识符</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response 200:",
+          "content": "{}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Response 400:",
+          "content": "{\n    \"message\":\"xxxx\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/api2.py",
+    "groupTitle": "Activities"
   },
   {
     "type": "post",
@@ -456,7 +502,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "<p>String</p> ",
             "optional": false,
-            "field": "id",
+            "field": "activity_id",
             "description": "<p>活动id</p> "
           }
         ]
@@ -464,7 +510,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    \"id\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n}",
+          "content": "{\n    \"activity_id\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n}",
           "type": "json"
         }
       ]
@@ -485,7 +531,7 @@ define({ "api": [
             "group": "Error 4xx",
             "type": "<p>String</p> ",
             "optional": false,
-            "field": "mesg",
+            "field": "message",
             "description": "<p>错误信息</p> "
           }
         ]
@@ -493,7 +539,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response 400:",
-          "content": "{\n    \"mesg\":\"xxxxx\"\n}",
+          "content": "{\n    \"message\":\"xxxxx\"\n}",
           "type": "json"
         }
       ]
@@ -601,7 +647,7 @@ define({ "api": [
             "group": "Error 4xx",
             "type": "<p>String</p> ",
             "optional": false,
-            "field": "mesg",
+            "field": "message",
             "description": "<p>错误信息</p> "
           }
         ]
@@ -609,7 +655,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response 400:",
-          "content": "{\n    \"mesg\":\"xxxxx\"\n}",
+          "content": "{\n    \"message\":\"xxxxx\"\n}",
           "type": "json"
         }
       ]
@@ -640,7 +686,7 @@ define({ "api": [
             "group": "Error 4xx",
             "type": "<p>String</p> ",
             "optional": false,
-            "field": "mesg",
+            "field": "message",
             "description": "<p>错误信息</p> "
           }
         ]
@@ -648,7 +694,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response 400:",
-          "content": "{\n    \"mesg\":\"xxxxx\"\n}",
+          "content": "{\n    \"message\":\"xxxxx\"\n}",
           "type": "json"
         }
       ]
@@ -697,7 +743,7 @@ define({ "api": [
             "group": "Error 4xx",
             "type": "<p>String</p> ",
             "optional": false,
-            "field": "mesg",
+            "field": "message",
             "description": "<p>错误信息</p> "
           }
         ]
@@ -705,7 +751,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response 400:",
-          "content": "{\n    \"mesg\":\"错误信息（...）\"\n}",
+          "content": "{\n    \"message\":\"错误信息（...）\"\n}",
           "type": "json"
         }
       ]
@@ -832,7 +878,7 @@ define({ "api": [
             "group": "Error 4xx",
             "type": "<p>String</p> ",
             "optional": false,
-            "field": "mesg",
+            "field": "message",
             "description": "<p>错误信息</p> "
           }
         ]
@@ -840,7 +886,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response 400:",
-          "content": "{\n    \"mesg\":\"错误信息（用户不存在/权限不够）\"\n}",
+          "content": "{\n    \"message\":\"错误信息（用户不存在/权限不够）\"\n}",
           "type": "json"
         }
       ]
@@ -998,7 +1044,7 @@ define({ "api": [
             "group": "Error 4xx",
             "type": "<p>String</p> ",
             "optional": false,
-            "field": "mesg",
+            "field": "message",
             "description": "<p>错误信息</p> "
           }
         ]
@@ -1006,7 +1052,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response (test) 400:",
-          "content": "{\n    \"mesg\":\"错误信息(....)\"\n}",
+          "content": "{\n    \"message\":\"错误信息(....)\"\n}",
           "type": "json"
         }
       ]
@@ -1113,6 +1159,65 @@ define({ "api": [
     "groupTitle": "User"
   },
   {
+    "type": "get",
+    "url": "/verify/",
+    "title": "手机验证",
+    "name": "__",
+    "version": "0.2.0",
+    "group": "Verify",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>手机号码</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "Base64({\n    \"phone\":\"15927278893\"\n})",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response (success) 200:",
+          "content": "{}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "message",
+            "description": "<p>错误信息</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (success) 400:",
+          "content": "{\n    \"message\":\"错误信息（...）\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/api2.py",
+    "groupTitle": "Verify"
+  },
+  {
     "type": "post",
     "url": "/verify/",
     "title": "手机验证",
@@ -1177,66 +1282,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response (success) 400:",
-          "content": "{\n    \"mesg\":\"错误信息（...）\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "api/api2.py",
-    "groupTitle": "Verify"
-  },
-  {
-    "type": "get",
-    "url": "/verify/",
-    "title": "手机验证",
-    "name": "__",
-    "version": "0.2.0",
-    "group": "Verify",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "phone",
-            "description": "<p>手机号码</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "Base64({\n    \"phone\":\"15927278893\"\n})",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Response (success) 200:",
-          "content": "{}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "mesg",
-            "description": "<p>错误信息</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (success) 400:",
-          "content": "{\n    \"mesg\":\"错误信息（...）\",\n}",
+          "content": "{\n    \"message\":\"错误信息（...）\"\n}",
           "type": "json"
         }
       ]

@@ -1,10 +1,10 @@
 """"""
 @apiDefine MyError 
 
-@apiError {String} mesg 出错信息
+@apiError {String} message 出错信息
 @apiErrorExample Response 400:
     {
-        "mesg":"错误信息（...）"
+        "message":"错误信息（...）"
     }
 """"""
 """"""
@@ -35,10 +35,10 @@
         "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff"
     }
 
-@apiError {String} mesg 错误信息
+@apiError {String} message 错误信息
 @apiErrorExample Response (test) 400:
     {
-        "mesg":"错误信息(....)"
+        "message":"错误信息(....)"
     }
 
 """"""
@@ -58,10 +58,10 @@
 @apiSuccessExample Response (success) 200:
     {}
 
-@apiError {String} mesg 错误信息
+@apiError {String} message 错误信息
 @apiErrorExample Response (success) 400:
     {
-        "mesg":"错误信息（...）",
+        "message":"错误信息（...）",
     }
 """"""
 
@@ -89,7 +89,7 @@
 
 @apiErrorExample Response (success) 400:
     {
-        "mesg":"错误信息（...）"
+        "message":"错误信息（...）"
     }
 """"""
 
@@ -112,10 +112,10 @@
         "event_launch":[{},{},...],//同上
     }
 
-@apiError {String} mesg 错误信息
+@apiError {String} message 错误信息
 @apiErrorExample Response 400:
     {
-        "mesg":"错误信息（...）"
+        "message":"错误信息（...）"
     }
 """"""
 
@@ -140,10 +140,10 @@
 @apiSuccessExample Response 200:
     {}
 
-@apiError {String} mesg 错误信息
+@apiError {String} message 错误信息
 @apiErrorExample Response 400:
     {
-        "mesg":"错误信息（用户不存在/权限不够）"
+        "message":"错误信息（用户不存在/权限不够）"
     }
 """"""
 
@@ -174,9 +174,9 @@
             "id":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
             "people_limit":50,
             "people_current":20,
-            "stime":"2015-11-12 00:00",
-            "duringtime":"60"(分钟),
-            "desc":"xxxxxxxxxxxx"
+            "start_time":"2015-11-12 00:00",
+            "during_time":"60"(分钟),
+            "descriptioniption":"xxxxxxxxxxxx"
             "spotlist":[{},{},{}...]，
             "loc_x":10.0,
             "loc_y":10.0,
@@ -200,9 +200,9 @@
         "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
         "name":"华科僵尸跑",
         "people_limit":50,
-        "stime":"2015-11-12 00:00",
-        "duringtime":"60",
-        "desc":"xxxxxxxxxxxx"
+        "start_time":"2015-11-12 00:00",
+        "during_time":"60",
+        "description":"xxxxxxxxxxxx"
         "spotlist":[{},{},{}...]，
         "loc_x":10.0,
         "loc_y":10.0,
@@ -232,11 +232,11 @@
 @apiPermission admin
 
 @apiParam {String} key 用户标识符
-@apiParam {String} id 活动标识符
+@apiParam {String} activity_id 活动标识符
 @apiParamExample {json} Request-Example:
     {
         "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
-        "id":"d5323e98-65f8-435b-a889-0c289f5835cb"
+        "activity_id":"d5323e98-65f8-435b-a889-0c289f5835cb"
     }
 
 @apiSuccessExample Response 200:
@@ -253,20 +253,20 @@
 @apiGroup ActivityDetail
 
 @apiParam {String} key 用户标识符
-@apiParam {String} id 活动id
+@apiParam {String} activity_id 活动id
 @apiParamExample Request-Example:
     {
-        "id":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
+        "activity_id":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
         "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
     }
 
 @apiSuccessExample Response 200:
     {}
 
-@apiError {String} mesg 错误信息
+@apiError {String} message 错误信息
 @apiErrorExample Response 400:
     {
-        "mesg":"xxxxx"
+        "message":"xxxxx"
     }
 
 """"""
@@ -293,10 +293,10 @@
         }
     }
 
-@apiError {String} mesg 错误信息
+@apiError {String} message 错误信息
 @apiErrorExample Response 400:
     {
-        "mesg":"xxxxx"
+        "message":"xxxxx"
     }
 
 """"""
@@ -313,10 +313,28 @@
         "url":"xxxxxx";
     }
 
-@apiError {String} mesg 错误信息
+@apiError {String} message 错误信息
 @apiErrorExample Response 400:
     {
-        "mesg":"xxxxx"
+        "message":"xxxxx"
     }
 
+""""""
+
+""""""
+@api {get} /activity/finish/ 新加的完成任务的接口
+@apiName finish
+@apiVersion 0.2.0
+@apiGroup Activities
+
+@apiParam key 用户标识符
+@apiParam activity_id 活动标识符
+
+@apiSuccessExample Response 200:
+    {}
+
+@apiErrorExample Response 400:
+    {
+        "message":"xxxx",
+    }
 """"""
