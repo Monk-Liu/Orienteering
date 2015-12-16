@@ -329,6 +329,15 @@
 
 @apiParam key 用户标识符
 @apiParam activity_id 活动标识符
+@apiParam finish_time 完成时间
+@apiParam spot_count 到达点数
+@apiParamExample:
+    {
+        "key":"",
+        "activities_id":"",
+        "finish_time":"2015-10-10 21:22;22",
+        "spot_count":2,
+    }
 
 @apiSuccessExample Response 200:
     {}

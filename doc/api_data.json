@@ -456,9 +456,28 @@
             "optional": false,
             "field": "activity_id",
             "description": "<p>活动标识符</p> "
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "finish_time",
+            "description": "<p>完成时间</p> "
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "spot_count",
+            "description": "<p>到达点数</p> "
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "title": ":",
+          "content": "{\n    \"key\":\"\",\n    \"activities_id\":\"\",\n    \"finish_time\":\"2015-10-10 21:22;22\",\n    \"spot_count\":2,\n}",
+          "type": "json"
+        }
+      ]
     },
     "success": {
       "examples": [
