@@ -153,7 +153,6 @@
 @apiGroup Activities
 
 @apiParamExample Request-Example:
-    {
         "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",  //这个感觉可有可无
         "loc_x":10.0,
         "loc_y":10.0,
@@ -161,7 +160,6 @@
         "loc_road":"xxx",
         "loc_city":"xxx",
         "page":1,//分页的内容
-    }
 
 @apiSuccessExample Response 200:
     {
@@ -182,6 +180,12 @@
             "loc_road":"xxx",
             "loc_city":"xxx",
         }*/
+        /*
+        {
+            "name":"xxx",
+            "user_key": "1a941e54-e22e-4f36-bec7-a472e3ee87ff",
+        }
+        */
     }
 @apiUse MyError
 
@@ -330,7 +334,7 @@
 @apiParam spot_count 到达点数.
 @apiParamExample:
     {
-        "key":"",
+        "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
         "activities_id":"",
         "finish_time":"2015-10-10 21:22;22",
         "spots":[{},{}...],
@@ -339,6 +343,78 @@
 
 @apiSuccessExample Response 200:
     {}
+
+@apiErrorExample Response 400:
+    {
+        "message":"xxxx",
+    }
+"""""""
+
+""""""
+@api {get} /activity/published/ 用户发起的活动
+@apiName 根据用户找发起的活动
+@apiVersion 0.2.0
+@apiGroup Activities
+
+@apiParam key {String} 用户标识符
+@apiParamExample:
+    "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff"
+
+@apiSuccessExample Response 200:
+    {
+        "acticity_list":[{}...]
+        //活动细节看 活动列表
+    }
+
+@apiErrorExample Response 400:
+    {
+        "message":"xxxx",
+    }
+
+""""""
+
+""""""
+@api {get} /activity/joined/ 用户参加的活动
+@apiName 根据用户找参加的活动
+@apiVersion 0.2.0
+@apiGroup Activities
+
+@apiParam key {String} 用户标志符
+@apiParamExample:
+    "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff"
+
+@apiSuccessExample Response 200:
+    {
+        "acticity_list":[{}...]
+        //活动细节看 活动列表
+    }
+
+@apiErrorExample Response 400:
+    {
+        "message":"xxxx",
+    }
+""""""
+
+""""""
+@api {get} /activity/people/ 参加活动的用户
+@apiName 参加活动的用户
+@apiVersion 0.2.0
+
+@apiGroup Activities
+
+@apiParam acticity_id {String} 活动id
+
+@apiParamExample:
+    "activity_id":"1a941e54-e22e-4f36-bec7-a472e3ee87ff"
+
+@apiSuccessExample Response 200:
+    {
+        "people_list":[{}...]
+        //{
+            "name":"xxxx",
+            "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff"
+        }
+    }
 
 @apiErrorExample Response 400:
     {
