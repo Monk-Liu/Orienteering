@@ -129,7 +129,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",  //这个感觉可有可无\n    \"loc_x\":10.0,\n    \"loc_y\":10.0,\n    \"loc_province\":\"湖北\",\n    \"loc_road\":\"xxx\",\n    \"loc_city\":\"xxx\",\n    \"page\":1,//分页的内容\n}",
+          "content": "\"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",  //这个感觉可有可无\n\"loc_x\":10.0,\n\"loc_y\":10.0,\n\"loc_province\":\"湖北\",\n\"loc_road\":\"xxx\",\n\"loc_city\":\"xxx\",\n\"page\":1,//分页的内容",
           "type": "json"
         }
       ]
@@ -138,7 +138,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{\n    \"hot\":[{},{}...]\n    \"local\":[{},{}...]\n    /*{\n        \"name\":\"华科僵尸跑\",\n        \"id\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n        \"people_limit\":50,\n        \"people_current\":20,\n        \"start_time\":\"2015-11-12 00:00\",\n        \"during_time\":\"60\"(分钟),\n        \"descriptioniption\":\"xxxxxxxxxxxx\"\n        \"spotlist\":[{},{},{}...]，\n        \"loc_x\":10.0,\n        \"loc_y\":10.0,\n        \"loc_province\":\"湖北\",\n        \"loc_road\":\"xxx\",\n        \"loc_city\":\"xxx\",\n    }*/\n}",
+          "content": "{\n    \"hot\":[{},{}...]\n    \"local\":[{},{}...]\n    /*{\n        \"name\":\"华科僵尸跑\",\n        \"id\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n        \"people_limit\":50,\n        \"people_current\":20,\n        \"start_time\":\"2015-11-12 00:00\",\n        \"during_time\":\"60\"(分钟),\n        \"descriptioniption\":\"xxxxxxxxxxxx\"\n        \"spotlist\":[{},{},{}...]，\n        \"loc_x\":10.0,\n        \"loc_y\":10.0,\n        \"loc_province\":\"湖北\",\n        \"loc_road\":\"xxx\",\n        \"loc_city\":\"xxx\",\n    }*/\n    /*\n    {\n        \"name\":\"xxx\",\n        \"user_key\": \"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    }\n    */\n}",
           "type": "json"
         }
       ]
@@ -165,6 +165,147 @@ define({ "api": [
         }
       ]
     }
+  },
+  {
+    "type": "get",
+    "url": "/activity/people/",
+    "title": "参加活动的用户",
+    "name": "_______",
+    "version": "0.2.0",
+    "group": "Activities",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "acticity_id",
+            "description": "<p>{String} 活动id</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": ":",
+          "content": "\"activity_id\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\"",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response 200:",
+          "content": "{\n    \"people_list\":[{}...]\n    //{\n        \"name\":\"xxxx\",\n        \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\"\n    }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Response 400:",
+          "content": "{\n    \"message\":\"xxxx\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/api2.py",
+    "groupTitle": "Activities"
+  },
+  {
+    "type": "get",
+    "url": "/activity/joined/",
+    "title": "用户参加的活动",
+    "name": "__________",
+    "version": "0.2.0",
+    "group": "Activities",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "key",
+            "description": "<p>{String} 用户标志符</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": ":",
+          "content": "\"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\"",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response 200:",
+          "content": "{\n    \"acticity_list\":[{}...]\n    //活动细节看 活动列表\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Response 400:",
+          "content": "{\n    \"message\":\"xxxx\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/api2.py",
+    "groupTitle": "Activities"
+  },
+  {
+    "type": "get",
+    "url": "/activity/published/",
+    "title": "用户发起的活动",
+    "name": "__________",
+    "version": "0.2.0",
+    "group": "Activities",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "key",
+            "description": "<p>{String} 用户标识符</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": ":",
+          "content": "\"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\"",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response 200:",
+          "content": "{\n    \"acticity_list\":[{}...]\n    //活动细节看 活动列表\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Response 400:",
+          "content": "{\n    \"message\":\"xxxx\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/api2.py",
+    "groupTitle": "Activities"
   },
   {
     "type": "post",
@@ -271,7 +412,7 @@ define({ "api": [
       "examples": [
         {
           "title": ":",
-          "content": "{\n    \"key\":\"\",\n    \"activities_id\":\"\",\n    \"finish_time\":\"2015-10-10 21:22;22\",\n    \"spots\":[{},{}...],\n    //spots 的形式参见 活动列表\n}",
+          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"activities_id\":\"\",\n    \"finish_time\":\"2015-10-10 21:22;22\",\n    \"spots\":[{},{}...],\n    //spots 的形式参见 活动列表\n}",
           "type": "json"
         }
       ]
@@ -453,59 +594,6 @@ define({ "api": [
     "groupTitle": "User"
   },
   {
-    "type": "POST",
-    "url": "/user/detail/:key/",
-    "title": "修改用户信息",
-    "name": "______",
-    "version": "0.2.0",
-    "group": "User",
-    "permission": [
-      {
-        "name": "admin,本人"
-      }
-    ],
-    "parameter": {
-      "examples": [
-        {
-          "title": "Response:",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",  \n    \"nickname\":\"panda\",\n    \"sex\":\"male\",\n    \"birthday\":\"2015-02-11\",\n    \"image\":\"http://run.monkliu.me:8888/staitc/1.jpg\"\n    //image 是客户端调用七牛后图片在七牛的url\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Response 200:",
-          "content": "{}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "message",
-            "description": "<p>错误信息.</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response 400:",
-          "content": "{\n    \"message\":\"错误信息（用户不存在/权限不够）\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "api/api2.py",
-    "groupTitle": "User"
-  },
-  {
     "type": "get",
     "url": "/user/detail/:uid/",
     "title": "获取用户信息",
@@ -555,6 +643,59 @@ define({ "api": [
         {
           "title": "Response 400:",
           "content": "{\n    \"message\":\"错误信息（...）\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/api2.py",
+    "groupTitle": "User"
+  },
+  {
+    "type": "POST",
+    "url": "/user/detail/:key/",
+    "title": "修改用户信息",
+    "name": "______",
+    "version": "0.2.0",
+    "group": "User",
+    "permission": [
+      {
+        "name": "admin,本人"
+      }
+    ],
+    "parameter": {
+      "examples": [
+        {
+          "title": "Response:",
+          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",  \n    \"nickname\":\"panda\",\n    \"sex\":\"male\",\n    \"birthday\":\"2015-02-11\",\n    \"image\":\"http://run.monkliu.me:8888/staitc/1.jpg\"\n    //image 是客户端调用七牛后图片在七牛的url\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response 200:",
+          "content": "{}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "message",
+            "description": "<p>错误信息.</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response 400:",
+          "content": "{\n    \"message\":\"错误信息（用户不存在/权限不够）\"\n}",
           "type": "json"
         }
       ]
