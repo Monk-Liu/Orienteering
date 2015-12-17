@@ -1,7 +1,7 @@
 define({ "api": [
   {
     "type": "post",
-    "url": "/activities/",
+    "url": "/activity/add/",
     "title": "发起活动",
     "name": "AddActivity",
     "version": "0.2.0",
@@ -10,7 +10,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Resquest-Example:",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"name\":\"华科僵尸跑\",\n    \"people_limit\":50,\n    \"start_time\":\"2015-11-12 00:00\",\n    \"during_time\":\"60\",\n    \"description\":\"xxxxxxxxxxxx\"\n    \"spotlist\":[{},{},{}...]，\n    \"loc_x\":10.0,\n    \"loc_y\":10.0,\n    \"loc_province\":\"湖北\",\n    \"loc_road\":\"xxx\",\n    \"loc_city\":\"xxx\",\n    //关于 spotlist 里面的{}\n    /*{ \"x\":120.00,\n        \"y\":40.00,\n       \"type\":1,\n       \"radius\":100,\n       \"message\":\"xxxxx\",\n      }*/\n}",
+          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"name\":\"华科僵尸跑\",\n    \"people_limit\":50,\n    \"start_time\":\"2015-11-12 00:00\",\n    \"during_time\":\"60\",\n    \"description\":\"xxxxxxxxxxxx\"\n    \"spotlist\":[{},{},{}...]，\n    \"loc_x\":10.0,\n    \"loc_y\":10.0,\n    \"loc_province\":\"湖北\",\n    \"loc_road\":\"xxx\",\n    \"loc_city\":\"xxx\",\n    //关于 spotlist 里面的{}\n    /*{ \"x\":120.00,\n        \"y\":40.00,\n       \"type\":1,\n       \"radius\":100,\n       \"message\":\"xxxxx\",\n       \"order\":1,\n      }*/\n}",
           "type": "json"
         }
       ]
@@ -48,111 +48,8 @@ define({ "api": [
     }
   },
   {
-    "type": "post",
-    "url": "/activities",
-    "title": "发起活动",
-    "name": "AddActivity",
-    "version": "0.1.0",
-    "group": "Activities",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "name",
-            "description": "<p>活动名称</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "position",
-            "description": "<p>活动地点</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "time",
-            "description": "<p>活动时间</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "desc",
-            "description": "<p>活动描述</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "<p>Object</p> ",
-            "optional": false,
-            "field": "spotlist",
-            "description": "<p>活动的每一个点</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Resquest-Example:",
-          "content": "{\n    \"name\":\"华科僵尸跑\",\n    \"position\":\"\",\n    \"time\":\"2015-11-12 00:00:00\",//这个也要约个格式\n    \"desc\":\"xxxxxxxxxxxx\"\n    \"spotlist\":[{},{},{}...]\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "<p>Number</p> ",
-            "optional": false,
-            "field": "status",
-            "description": "<p>1</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response:",
-          "content": "{\n    \"status\":1\n}",
-          "type": "json"
-        },
-        {
-          "title": "Response:",
-          "content": "{\n    \"status\":1\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "api/api.py",
-    "groupTitle": "Activities",
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "message",
-            "description": "<p>出错信息</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response 400:",
-          "content": "{\n    \"message\":\"错误信息（...）\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
     "type": "get",
-    "url": "/activity/",
+    "url": "/activity/deletion/",
     "title": "删除活动",
     "name": "DelActivity",
     "version": "0.2.0",
@@ -170,21 +67,21 @@ define({ "api": [
             "type": "<p>String</p> ",
             "optional": false,
             "field": "key",
-            "description": "<p>用户标识符</p> "
+            "description": "<p>用户标识符.</p> "
           },
           {
             "group": "Parameter",
             "type": "<p>String</p> ",
             "optional": false,
             "field": "activity_id",
-            "description": "<p>活动标识符</p> "
+            "description": "<p>活动标识符.</p> "
           }
         ]
       },
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"activity_id\":\"d5323e98-65f8-435b-a889-0c289f5835cb\"\n}",
+          "content": "\"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n\"activity_id\":\"d5323e98-65f8-435b-a889-0c289f5835cb\"",
           "type": "json"
         }
       ]
@@ -222,90 +119,8 @@ define({ "api": [
     }
   },
   {
-    "type": "delete",
-    "url": "/activities/",
-    "title": "删除活动",
-    "name": "DelActivity",
-    "version": "0.1.0",
-    "group": "Activities",
-    "permission": [
-      {
-        "name": "admin"
-      }
-    ],
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "key",
-            "description": "<p>用户标识符</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "activity-id",
-            "description": "<p>活动标识符</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"activity-id\":\"d5323e98-65f8-435b-a889-0c289f5835cb\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "<p>Number</p> ",
-            "optional": false,
-            "field": "status",
-            "description": "<p>1</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response:",
-          "content": "{\n    \"status\":1\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "api/api.py",
-    "groupTitle": "Activities",
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "message",
-            "description": "<p>出错信息</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response 400:",
-          "content": "{\n    \"message\":\"错误信息（...）\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
     "type": "get",
-    "url": "/activities/",
+    "url": "/activity/list/",
     "title": "获得活动列表",
     "name": "____",
     "version": "0.2.0",
@@ -352,161 +167,12 @@ define({ "api": [
     }
   },
   {
-    "type": "get",
-    "url": "/activities/",
-    "title": "获得活动列表",
-    "name": "____",
-    "version": "0.1.0",
-    "group": "Activities",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "key",
-            "description": "<p>用户识别符</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "position",
-            "description": "<p>用来识别地理位置的参数，省份/城市/ 经纬度</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",  //这个感觉可有可无\n    \"position\":\"武汉/湖北/ （120,80）\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "<p>Number</p> ",
-            "optional": false,
-            "field": "status",
-            "description": "<p>成功返回 1</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Object</p> ",
-            "optional": false,
-            "field": "data",
-            "description": "<p>活动的列表</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response:",
-          "content": "{\n    \"status\":1,\n    \"data\":[{},{},{}]\n    //data 里面每个元素 都是 {\"position\":(111,40),\"task\":\"XXXXXXXX\"} 的形式\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "api/api.py",
-    "groupTitle": "Activities",
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "message",
-            "description": "<p>出错信息</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response 400:",
-          "content": "{\n    \"message\":\"错误信息（...）\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "get",
-    "url": "/activity/finish/",
-    "title": "新加的完成任务的接口",
-    "name": "finish",
-    "version": "0.2.0",
-    "group": "Activities",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "optional": false,
-            "field": "key",
-            "description": "<p>用户标识符</p> "
-          },
-          {
-            "group": "Parameter",
-            "optional": false,
-            "field": "activity_id",
-            "description": "<p>活动标识符</p> "
-          },
-          {
-            "group": "Parameter",
-            "optional": false,
-            "field": "finish_time",
-            "description": "<p>完成时间</p> "
-          },
-          {
-            "group": "Parameter",
-            "optional": false,
-            "field": "spot_count",
-            "description": "<p>到达点数</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": ":",
-          "content": "{\n    \"key\":\"\",\n    \"activities_id\":\"\",\n    \"finish_time\":\"2015-10-10 21:22;22\",\n    \"spot_count\":2,\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Response 200:",
-          "content": "{}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Response 400:",
-          "content": "{\n    \"message\":\"xxxx\",\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "api/api2.py",
-    "groupTitle": "Activities"
-  },
-  {
     "type": "post",
-    "url": "/activity/",
+    "url": "/activity/attend/",
     "title": "加入活动",
-    "name": "____",
+    "name": "attend",
     "version": "0.2.0",
-    "group": "ActivityDetail",
+    "group": "Activities",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -515,14 +181,14 @@ define({ "api": [
             "type": "<p>String</p> ",
             "optional": false,
             "field": "key",
-            "description": "<p>用户标识符</p> "
+            "description": "<p>用户标识符.</p> "
           },
           {
             "group": "Parameter",
             "type": "<p>String</p> ",
             "optional": false,
             "field": "activity_id",
-            "description": "<p>活动id</p> "
+            "description": "<p>活动id.</p> "
           }
         ]
       },
@@ -551,7 +217,7 @@ define({ "api": [
             "type": "<p>String</p> ",
             "optional": false,
             "field": "message",
-            "description": "<p>错误信息</p> "
+            "description": "<p>错误信息.</p> "
           }
         ]
       },
@@ -564,90 +230,78 @@ define({ "api": [
       ]
     },
     "filename": "api/api2.py",
-    "groupTitle": "ActivityDetail"
+    "groupTitle": "Activities"
   },
   {
-    "type": "post",
-    "url": "/activity/",
-    "title": "加入活动",
-    "name": "____",
-    "version": "0.1.0",
-    "group": "ActivityDetail",
+    "type": "get",
+    "url": "/activity/finish/",
+    "title": "新加的完成任务的接口",
+    "name": "finish",
+    "version": "0.2.0",
+    "group": "Activities",
     "parameter": {
       "fields": {
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "<p>String</p> ",
             "optional": false,
             "field": "key",
-            "description": "<p>用户标识符</p> "
+            "description": "<p>用户标识符.</p> "
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "activity_id",
+            "description": "<p>活动标识符.</p> "
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "finish_time",
+            "description": "<p>完成时间.</p> "
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "spot_count",
+            "description": "<p>到达点数.</p> "
           }
         ]
       },
       "examples": [
         {
-          "title": "Request-Example:",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n}",
+          "title": ":",
+          "content": "{\n    \"key\":\"\",\n    \"activities_id\":\"\",\n    \"finish_time\":\"2015-10-10 21:22;22\",\n    \"spots\":[{},{}...],\n    //spots 的形式参见 活动列表\n}",
           "type": "json"
         }
       ]
     },
     "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "<p>Number</p> ",
-            "optional": false,
-            "field": "status",
-            "description": "<p>成功返回1</p> "
-          }
-        ]
-      },
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{\n    \"status\":1\n}",
+          "content": "{}",
           "type": "json"
         }
       ]
     },
     "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "type": "<p>Number</p> ",
-            "optional": false,
-            "field": "status",
-            "description": "<p>失败返回 2</p> "
-          },
-          {
-            "group": "Error 4xx",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "mesg",
-            "description": "<p>错误信息</p> "
-          }
-        ]
-      },
       "examples": [
         {
-          "title": "Response:",
-          "content": "{\n    \"status\":2,\n    \"mesg\":\"xxxxx\"\n}",
+          "title": "Response 400:",
+          "content": "{\n    \"message\":\"xxxx\",\n}",
           "type": "json"
         }
       ]
     },
-    "filename": "api/api.py",
-    "groupTitle": "ActivityDetail"
+    "filename": "api/api2.py",
+    "groupTitle": "Activities"
   },
   {
     "type": "get",
     "url": "/city/",
     "title": "城市列表",
-    "name": "____",
+    "name": "CityList",
     "version": "0.2.0",
     "group": "Cities",
     "success": {
@@ -667,7 +321,7 @@ define({ "api": [
             "type": "<p>String</p> ",
             "optional": false,
             "field": "message",
-            "description": "<p>错误信息</p> "
+            "description": "<p>错误信息.</p> "
           }
         ]
       },
@@ -684,8 +338,8 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/splash/",
-    "title": "splash",
+    "url": "/splash/splash/",
+    "title": "",
     "name": "splash",
     "version": "0.2.0",
     "group": "Splash",
@@ -706,7 +360,7 @@ define({ "api": [
             "type": "<p>String</p> ",
             "optional": false,
             "field": "message",
-            "description": "<p>错误信息</p> "
+            "description": "<p>错误信息.</p> "
           }
         ]
       },
@@ -720,287 +374,6 @@ define({ "api": [
     },
     "filename": "api/api2.py",
     "groupTitle": "Splash"
-  },
-  {
-    "type": "get",
-    "url": "/user/detail/:uid",
-    "title": "获取用户信息",
-    "group": "UserDetail",
-    "name": "______",
-    "version": "0.2.0",
-    "permission": [
-      {
-        "name": "none"
-      }
-    ],
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "key",
-            "description": "<p>用户标识符key和url上的uid不同，uid表示表示被访问的用户，key代表自己，</p> "
-          }
-        ]
-      }
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Response 200:",
-          "content": "{\n    \"nickname\":\"panda\",\n    \"sex\":\"male\",\n    \"birthday\":\"2015-02-11\"\n    \"image\":\"http://run.monkliu.me:8888/static/1.jpg\",\n    \"event_attend\":[{},{},...],//{}内容参考 活动细节\n    \"event_launch\":[{},{},...],//同上\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "message",
-            "description": "<p>错误信息</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response 400:",
-          "content": "{\n    \"message\":\"错误信息（...）\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "api/api2.py",
-    "groupTitle": "UserDetail"
-  },
-  {
-    "type": "get",
-    "url": "/user/detail/:key",
-    "title": "获取用户信息",
-    "group": "UserDetail",
-    "name": "______",
-    "version": "0.1.0",
-    "permission": [
-      {
-        "name": "none"
-      }
-    ],
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "key",
-            "description": "<p>用户标识符</p> "
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "<p>Number</p> ",
-            "optional": false,
-            "field": "status",
-            "description": "<p>成功返回 1</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Object</p> ",
-            "optional": false,
-            "field": "data",
-            "description": "<p>用户信息</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response:",
-          "content": "{\n    \"status\":1,\n    \"data\":{\n        \"nickname\":\"panda\",\n        \"sex\":\"male\",\n        \"image\":\"http://run.monkliu.me:8888/static/1.jpg\"\n    }\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "type": "<p>Number</p> ",
-            "optional": false,
-            "field": "status",
-            "description": "<p>出错返回 2</p> "
-          },
-          {
-            "group": "Error 4xx",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "mesg",
-            "description": "<p>错误信息</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response :",
-          "content": "{\n    \"status\":2,\n    \"mesg\":\"用户不存在。。。\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "api/api.py",
-    "groupTitle": "UserDetail"
-  },
-  {
-    "type": "POST",
-    "url": "/user/detail/:key",
-    "title": "修改用户信息",
-    "group": "UserInfo",
-    "name": "______",
-    "version": "0.2.0",
-    "permission": [
-      {
-        "name": "admin,本人"
-      }
-    ],
-    "parameter": {
-      "examples": [
-        {
-          "title": "Response:",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",  \n    \"nickname\":\"panda\",\n    \"sex\":\"male\",\n    \"birthday\":\"2015-02-11\",\n    \"image\":\"http://run.monkliu.me:8888/staitc/1.jpg\"\n    //image 是客户端调用七牛后图片在七牛的url\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Response 200:",
-          "content": "{}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "message",
-            "description": "<p>错误信息</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response 400:",
-          "content": "{\n    \"message\":\"错误信息（用户不存在/权限不够）\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "api/api2.py",
-    "groupTitle": "UserInfo"
-  },
-  {
-    "type": "PUT",
-    "url": "/user/detail/:key",
-    "title": "修改用户信息",
-    "group": "UserInfo",
-    "name": "______",
-    "version": "0.1.0",
-    "permission": [
-      {
-        "name": "admin,本人"
-      }
-    ],
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "key",
-            "description": "<p>用户标识符</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "<p>Object</p> ",
-            "optional": false,
-            "field": "data",
-            "description": "<p>用户信息</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response:",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",  \n    \"data\":{\n        \"nickname\":\"panda\",\n        \"sex\":\"male\",\n        \"image\":\"http://run.monkliu.me:8888/staitc/1.jpg\"\n    }\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "<p>Number</p> ",
-            "optional": false,
-            "field": "status",
-            "description": "<p>成功返回 1</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response:",
-          "content": "{\n    \"status\":1\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "type": "<p>Number</p> ",
-            "optional": false,
-            "field": "status",
-            "description": "<p>出错返回 2</p> "
-          },
-          {
-            "group": "Error 4xx",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "mesg",
-            "description": "<p>错误信息</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response :",
-          "content": "{\n    \"status\":2,\n    \"mesg\":\"用户不存在。。。/权限不够\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "api/api.py",
-    "groupTitle": "UserInfo"
   },
   {
     "type": "post",
@@ -1017,14 +390,14 @@ define({ "api": [
             "type": "<p>String</p> ",
             "optional": false,
             "field": "phone",
-            "description": "<p>手机号</p> "
+            "description": "<p>手机号.</p> "
           },
           {
             "group": "Parameter",
             "type": "<p>String</p> ",
             "optional": false,
             "field": "password",
-            "description": "<p>密码</p> "
+            "description": "<p>密码.</p> "
           }
         ]
       },
@@ -1064,7 +437,7 @@ define({ "api": [
             "type": "<p>String</p> ",
             "optional": false,
             "field": "message",
-            "description": "<p>错误信息</p> "
+            "description": "<p>错误信息.</p> "
           }
         ]
       },
@@ -1080,69 +453,31 @@ define({ "api": [
     "groupTitle": "User"
   },
   {
-    "type": "post",
-    "url": "/users/",
-    "title": "登录/注册",
-    "name": "_____",
-    "version": "0.1.0",
+    "type": "POST",
+    "url": "/user/detail/:key/",
+    "title": "修改用户信息",
+    "name": "______",
+    "version": "0.2.0",
     "group": "User",
+    "permission": [
+      {
+        "name": "admin,本人"
+      }
+    ],
     "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "phone",
-            "description": "<p>手机号</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "verify",
-            "description": "<p>验证码</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "password",
-            "description": "<p>密码</p> "
-          }
-        ]
-      },
       "examples": [
         {
-          "title": "Request-Example:",
-          "content": "{\n    \"phone\":\"15927278893\",\n    \"verify\":\"Zh90\",\n    \"password\":\"admin\"\n}",
+          "title": "Response:",
+          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",  \n    \"nickname\":\"panda\",\n    \"sex\":\"male\",\n    \"birthday\":\"2015-02-11\",\n    \"image\":\"http://run.monkliu.me:8888/staitc/1.jpg\"\n    //image 是客户端调用七牛后图片在七牛的url\n}",
           "type": "json"
         }
       ]
     },
     "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "<p>Number</p> ",
-            "optional": false,
-            "field": "status",
-            "description": "<p>返回状态 1</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "key",
-            "description": "<p>用户的key</p> "
-          }
-        ]
-      },
       "examples": [
         {
-          "title": "Response (success):",
-          "content": "{\n    \"status\":1,\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\"\n}",
+          "title": "Response 200:",
+          "content": "{}",
           "type": "json"
         }
       ]
@@ -1152,36 +487,86 @@ define({ "api": [
         "Error 4xx": [
           {
             "group": "Error 4xx",
-            "type": "<p>Number</p> ",
-            "optional": false,
-            "field": "status",
-            "description": "<p>返回状态 2</p> "
-          },
-          {
-            "group": "Error 4xx",
             "type": "<p>String</p> ",
             "optional": false,
-            "field": "mesg",
-            "description": "<p>错误信息</p> "
+            "field": "message",
+            "description": "<p>错误信息.</p> "
           }
         ]
       },
       "examples": [
         {
-          "title": "Response (test):",
-          "content": "{\n    \"status\":2,\n    \"mesg\":\"用户密码/或者验证码错误\"\n}",
+          "title": "Response 400:",
+          "content": "{\n    \"message\":\"错误信息（用户不存在/权限不够）\"\n}",
           "type": "json"
         }
       ]
     },
-    "filename": "api/api.py",
+    "filename": "api/api2.py",
+    "groupTitle": "User"
+  },
+  {
+    "type": "get",
+    "url": "/user/detail/:uid/",
+    "title": "获取用户信息",
+    "name": "______",
+    "version": "0.2.0",
+    "group": "User",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "key",
+            "description": "<p>用户标识符key和url上的uid不同，uid表示表示被访问的用户，key代表自己.</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response 200:",
+          "content": "{\n    \"nickname\":\"panda\",\n    \"sex\":\"male\",\n    \"birthday\":\"2015-02-11\"\n    \"image\":\"http://run.monkliu.me:8888/static/1.jpg\",\n    \"event_attend\":[{},{},...],//{}内容参考 活动细节\n    \"event_launch\":[{},{},...],//同上\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "message",
+            "description": "<p>错误信息.</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response 400:",
+          "content": "{\n    \"message\":\"错误信息（...）\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/api2.py",
     "groupTitle": "User"
   },
   {
     "type": "get",
     "url": "/verify/",
-    "title": "手机验证",
-    "name": "__",
+    "title": "获取验证码",
+    "name": "_____",
     "version": "0.2.0",
     "group": "Verify",
     "parameter": {
@@ -1192,14 +577,14 @@ define({ "api": [
             "type": "<p>String</p> ",
             "optional": false,
             "field": "phone",
-            "description": "<p>手机号码</p> "
+            "description": "<p>手机号码.</p> "
           }
         ]
       },
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "Base64({\n    \"phone\":\"15927278893\"\n})",
+          "content": "\"phone\":Base64(\"15927278893\")",
           "type": "json"
         }
       ]
@@ -1221,13 +606,13 @@ define({ "api": [
             "type": "<p>String</p> ",
             "optional": false,
             "field": "message",
-            "description": "<p>错误信息</p> "
+            "description": "<p>错误信息.</p> "
           }
         ]
       },
       "examples": [
         {
-          "title": "Response (success) 400:",
+          "title": "Response (error) 400:",
           "content": "{\n    \"message\":\"错误信息（...）\",\n}",
           "type": "json"
         }
@@ -1240,7 +625,7 @@ define({ "api": [
     "type": "post",
     "url": "/verify/",
     "title": "手机验证",
-    "name": "__",
+    "name": "_____",
     "version": "0.2.0",
     "group": "Verify",
     "parameter": {
@@ -1251,21 +636,21 @@ define({ "api": [
             "type": "<p>String</p> ",
             "optional": false,
             "field": "phone",
-            "description": "<p>手机号码</p> "
+            "description": "<p>手机号码.</p> "
           },
           {
             "group": "Parameter",
             "type": "<p>String</p> ",
             "optional": false,
             "field": "password",
-            "description": "<p>密码</p> "
+            "description": "<p>密码.</p> "
           },
           {
             "group": "Parameter",
             "type": "<p>String</p> ",
             "optional": false,
             "field": "verify",
-            "description": "<p>验证码</p> "
+            "description": "<p>验证码.</p> "
           }
         ]
       },
@@ -1307,83 +692,6 @@ define({ "api": [
       ]
     },
     "filename": "api/api2.py",
-    "groupTitle": "Verify"
-  },
-  {
-    "type": "post",
-    "url": "/verify/",
-    "title": "手机验证",
-    "name": "__",
-    "version": "0.1.0",
-    "group": "Verify",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "phone",
-            "description": "<p>手机号码</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    \"phone\":\"15927278893\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "<p>Number</p> ",
-            "optional": false,
-            "field": "status",
-            "description": "<p>成功返回 1</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (success):",
-          "content": "{\n    \"status\":1\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "type": "<p>Number</p> ",
-            "optional": false,
-            "field": "status",
-            "description": "<p>失败返回 2</p> "
-          },
-          {
-            "group": "Error 4xx",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "mesg",
-            "description": "<p>错误信息</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (success):",
-          "content": "{\n    \"status\":2,\n    \"mesg\":\"请不要频繁请求\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "api/api.py",
     "groupTitle": "Verify"
   }
 ] });

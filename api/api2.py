@@ -20,8 +20,8 @@
 @apiVersion 0.2.0
 @apiGroup User
 
-@apiParam  {String} phone 手机号
-@apiParam  {String} password 密码
+@apiParam  {String} phone 手机号.
+@apiParam  {String} password 密码.
 @apiParamExample {json} Request-Example:
     Base64({
         "phone":"15927278893",
@@ -35,7 +35,7 @@
         "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff"
     }
 
-@apiError {String} message 错误信息
+@apiError {String} message 错误信息.
 @apiErrorExample Response (test) 400:
     {
         "message":"错误信息(....)"
@@ -44,22 +44,20 @@
 """"""
 
 """"""
-@api {get} /verify/ 手机验证
-@apiName 手机
+@api {get} /verify/ 获取验证码
+@apiName 获取验证码
 @apiVersion 0.2.0
 @apiGroup Verify
 
-@apiParam {String} phone 手机号码
-@apiParamExample {json} Request-Example:
-    Base64({
-        "phone":"15927278893"
-    })
+@apiParam {String} phone 手机号码.
+@apiParamExample  Request-Example:
+        "phone":Base64("15927278893")
 
 @apiSuccessExample Response (success) 200:
     {}
 
-@apiError {String} message 错误信息
-@apiErrorExample Response (success) 400:
+@apiError {String} message 错误信息.
+@apiErrorExample Response (error) 400:
     {
         "message":"错误信息（...）",
     }
@@ -67,13 +65,13 @@
 
 """"""
 @api {post} /verify/ 手机验证
-@apiName 手机
+@apiName 发送验证码
 @apiVersion 0.2.0
 @apiGroup Verify
 
-@apiParam {String} phone 手机号码
-@apiParam {String} password 密码
-@apiParam {String} verify 验证码
+@apiParam {String} phone 手机号码.
+@apiParam {String} password 密码.
+@apiParam {String} verify 验证码.
 @apiParamExample {json} Request-Example:
     Base64({
         "phone":"15927278893",
@@ -94,13 +92,13 @@
 """"""
 
 """"""
-@api {get} /user/detail/:uid 获取用户信息
-@apiGroup UserDetail
+@api {get} /user/detail/:uid/ 获取用户信息
 @apiName 获取用户信息
 @apiVersion 0.2.0
+@apiGroup User
 @apiPermission none
 
-@apiParam {String} key 用户标识符key和url上的uid不同，uid表示表示被访问的用户，key代表自己，
+@apiParam {String} key 用户标识符key和url上的uid不同，uid表示表示被访问的用户，key代表自己.
 
 @apiSuccessExample Response 200:
     {
@@ -112,7 +110,7 @@
         "event_launch":[{},{},...],//同上
     }
 
-@apiError {String} message 错误信息
+@apiError {String} message 错误信息.
 @apiErrorExample Response 400:
     {
         "message":"错误信息（...）"
@@ -120,10 +118,10 @@
 """"""
 
 """"""
-@api {POST} /user/detail/:key 修改用户信息
-@apiGroup UserInfo
+@api {POST} /user/detail/:key/ 修改用户信息
 @apiName 修改用户信息
 @apiVersion 0.2.0
+@apiGroup User
 @apiPermission admin,本人
 
 @apiParamExample Response:
@@ -140,7 +138,7 @@
 @apiSuccessExample Response 200:
     {}
 
-@apiError {String} message 错误信息
+@apiError {String} message 错误信息.
 @apiErrorExample Response 400:
     {
         "message":"错误信息（用户不存在/权限不够）"
@@ -149,7 +147,7 @@
 
 
 """"""
-@api {get} /activities/ 获得活动列表
+@api {get} /activity/list/ 获得活动列表
 @apiName 活动列表
 @apiVersion 0.2.0
 @apiGroup Activities
@@ -190,7 +188,7 @@
 """"""
 
 """"""
-@api {post} /activities/ 发起活动
+@api {post} /activity/add/ 发起活动
 @apiName AddActivity
 @apiVersion 0.2.0
 @apiGroup Activities
@@ -215,6 +213,7 @@
            "type":1,
            "radius":100,
            "message":"xxxxx",
+           "order":1,
           }*/
     }
 
@@ -225,19 +224,17 @@
 """"""
 
 """"""
-@api {get} /activity/ 删除活动
+@api {get} /activity/deletion/ 删除活动
 @apiName DelActivity
 @apiVersion 0.2.0
 @apiGroup Activities
 @apiPermission admin
 
-@apiParam {String} key 用户标识符
-@apiParam {String} activity_id 活动标识符
+@apiParam {String} key 用户标识符.
+@apiParam {String} activity_id 活动标识符.
 @apiParamExample {json} Request-Example:
-    {
         "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
         "activity_id":"d5323e98-65f8-435b-a889-0c289f5835cb"
-    }
 
 @apiSuccessExample Response 200:
     {}
@@ -247,13 +244,13 @@
     
 
 """"""
-@api {post} /activity/ 加入活动
-@apiName 加入活动
+@api {post} /activity/attend/ 加入活动
+@apiName attend
 @apiVersion 0.2.0
-@apiGroup ActivityDetail
+@apiGroup Activities
 
-@apiParam {String} key 用户标识符
-@apiParam {String} activity_id 活动id
+@apiParam {String} key 用户标识符.
+@apiParam {String} activity_id 活动id.
 @apiParamExample Request-Example:
     {
         "activity_id":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
@@ -263,7 +260,7 @@
 @apiSuccessExample Response 200:
     {}
 
-@apiError {String} message 错误信息
+@apiError {String} message 错误信息.
 @apiErrorExample Response 400:
     {
         "message":"xxxxx"
@@ -273,7 +270,7 @@
 
 """"""
 @api {get} /city/ 城市列表
-@apiName 城市列表
+@apiName CityList
 @apiVersion 0.2.0
 @apiGroup Cities
 
@@ -293,7 +290,7 @@
         }
     }
 
-@apiError {String} message 错误信息
+@apiError {String} message 错误信息.
 @apiErrorExample Response 400:
     {
         "message":"xxxxx"
@@ -302,7 +299,7 @@
 """"""
 
 """"""
-@api {get} /splash/ splash
+@api {get} /splash/splash/
 @apiName splash
 @apiVersion 0.2.0
 @apiGroup Splash
@@ -313,7 +310,7 @@
         "url":"xxxxxx";
     }
 
-@apiError {String} message 错误信息
+@apiError {String} message 错误信息.
 @apiErrorExample Response 400:
     {
         "message":"xxxxx"
@@ -327,16 +324,17 @@
 @apiVersion 0.2.0
 @apiGroup Activities
 
-@apiParam key 用户标识符
-@apiParam activity_id 活动标识符
-@apiParam finish_time 完成时间
-@apiParam spot_count 到达点数
+@apiParam key 用户标识符.
+@apiParam activity_id 活动标识符.
+@apiParam finish_time 完成时间.
+@apiParam spot_count 到达点数.
 @apiParamExample:
     {
         "key":"",
         "activities_id":"",
         "finish_time":"2015-10-10 21:22;22",
-        "spot_count":2,
+        "spots":[{},{}...],
+        //spots 的形式参见 活动列表
     }
 
 @apiSuccessExample Response 200:
