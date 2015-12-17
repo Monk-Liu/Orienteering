@@ -33,6 +33,19 @@ ToDo:   1.set Column as unicode,text
         4.what's the difference between unicode and string
 
 '''
+
+class UserEvent(Base):
+    __tablename__ = 'user_event'
+
+    #id = Column(Integer, primary_key=True)
+    event_id = Column(String(50), ForeignKey('events.id'),primary_key=True)
+    user_id  = Column(Integer, ForeignKey('userinfo.id'),primary_key=True)
+    finish_time = Column(Integer)
+    finish_points = Column(Integer) # 本来是要有 和point的对应关系的，但是可以用另一种、
+    #更快的方法实现的， 主要是 类似 linux 权限管理的 1 4 7 那些数字一样的想法
+    
+
+
 class User(Base):
     __tablename__ = 'users'
 
@@ -61,8 +74,7 @@ class UserInfo(Base):
     age = Column(Integer)
     sex = Column(Integer)
     #so what the lambda used for? http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#one-to-one
-    join_event = relationship('Event',
-                              secondary=lambda:UserEventTable, 
+    join_event = relationship('UserEvent',
                               backref='participator',
                               passive_deletes = True
                               )
@@ -101,11 +113,9 @@ class Event(Base):
     type = Column(Integer) 
     logo = Column(String(3000))
     host = Column(Integer,ForeignKey('userinfo.id'))
-    eventdetail = relationship("EventDetail",uselist=False,backref="detail_event")
     points = relationship("Points",backref='point_event',cascade='save-update,merge,delete')
     userinfo_id = relationship(
-            'UserInfo',
-            secondary=lambda:UserEventTable,
+            'UserEvent',
             backref = 'the_event',
             passive_deletes = True
         )
@@ -140,6 +150,7 @@ class Points(Base):
     message = Column(Text())
     radius = Column(Float)
     type = Column(Integer)
+    order = Column(Integer)
     event_re = Column(String(50),ForeignKey('events.id'))
 
     def __init__(self,x=None,y=None,message=None,radius=None,type=1):
@@ -148,18 +159,15 @@ class Points(Base):
         self.radius = radius
         self.message = message
         self.type=type
-
+'''
 class EventDetail(Base):
     __tablename__ = 'eventdetail'
 
     id = Column(Integer,primary_key=True)
     event_re = Column(String(50),ForeignKey('events.id'))
-    
+'''  
 
-UserEventTable = Table('user_event',Base.metadata,
-    Column('user_id',Integer,ForeignKey('userinfo.id')),
-    Column('event_id',String(50),ForeignKey('events.id'))
-    )
+
 
 if __name__ == '__main__':
     Base.metadata.drop_all(engine)
