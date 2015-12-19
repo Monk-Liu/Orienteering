@@ -15,8 +15,8 @@
 """"""
 
 """"""
-@api {post} /users/ 登录/注册
-@apiName 登录/注册
+@api {post} /users/ 登录
+@apiName 登录
 @apiVersion 0.2.0
 @apiGroup User
 
@@ -65,7 +65,7 @@
 
 """"""
 @api {post} /verify/ 手机验证
-@apiName 发送验证码
+@apiName 发送验证码/注册
 @apiVersion 0.2.0
 @apiGroup Verify
 
@@ -163,15 +163,14 @@
 
 @apiSuccessExample Response 200:
     {
-        "hot":[{},{}...]
-        "local":[{},{}...]
+        "list":[{},{}...]
         /*{
             "name":"华科僵尸跑",
             "id":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
-            "people_limit":50,
-            "people_current":20,
-            "start_time":"2015-11-12 00:00",
-            "during_time":"60"(分钟),
+            "person_limit":50,
+            "person_current":20,
+            "start_time":"1450527299",
+            "end_time":"1450527299"(分钟),
             "descriptioniption":"xxxxxxxxxxxx"
             "spotlist":[{},{},{}...]，
             "loc_x":10.0,
@@ -179,6 +178,7 @@
             "loc_province":"湖北",
             "loc_road":"xxx",
             "loc_city":"xxx",
+            "type":0(普通)/1(hot)
         }*/
         /*
         {
@@ -201,9 +201,9 @@
     {
         "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
         "name":"华科僵尸跑",
-        "people_limit":50,
-        "start_time":"2015-11-12 00:00",
-        "during_time":"60",
+        "person_limit":50,
+        "start_time":"1450527299",
+        "end_time":"1450527299"(分钟),
         "description":"xxxxxxxxxxxx"
         "spotlist":[{},{},{}...]，
         "loc_x":10.0,
@@ -335,9 +335,9 @@
 @apiParamExample:
     {
         "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
-        "activities_id":"",
-        "finish_time":"2015-10-10 21:22;22",
-        "spots":[{},{}...],
+        "activity_id":"",
+        "finish_time":"1450527299",
+        "reached_spotlist":[{},{}...],
         //spots 的形式参见 活动列表
     }
 

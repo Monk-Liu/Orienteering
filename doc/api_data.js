@@ -10,7 +10,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Resquest-Example:",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"name\":\"华科僵尸跑\",\n    \"people_limit\":50,\n    \"start_time\":\"2015-11-12 00:00\",\n    \"during_time\":\"60\",\n    \"description\":\"xxxxxxxxxxxx\"\n    \"spotlist\":[{},{},{}...]，\n    \"loc_x\":10.0,\n    \"loc_y\":10.0,\n    \"loc_province\":\"湖北\",\n    \"loc_road\":\"xxx\",\n    \"loc_city\":\"xxx\",\n    //关于 spotlist 里面的{}\n    /*{ \"x\":120.00,\n        \"y\":40.00,\n       \"type\":1,\n       \"radius\":100,\n       \"message\":\"xxxxx\",\n       \"order\":1,\n      }*/\n}",
+          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"name\":\"华科僵尸跑\",\n    \"person_limit\":50,\n    \"start_time\":\"1450527299\",\n    \"end_time\":\"1450527299\"(分钟),\n    \"description\":\"xxxxxxxxxxxx\"\n    \"spotlist\":[{},{},{}...]，\n    \"loc_x\":10.0,\n    \"loc_y\":10.0,\n    \"loc_province\":\"湖北\",\n    \"loc_road\":\"xxx\",\n    \"loc_city\":\"xxx\",\n    //关于 spotlist 里面的{}\n    /*{ \"x\":120.00,\n        \"y\":40.00,\n       \"type\":1,\n       \"radius\":100,\n       \"message\":\"xxxxx\",\n       \"order\":1,\n      }*/\n}",
           "type": "json"
         }
       ]
@@ -138,7 +138,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{\n    \"hot\":[{},{}...]\n    \"local\":[{},{}...]\n    /*{\n        \"name\":\"华科僵尸跑\",\n        \"id\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n        \"people_limit\":50,\n        \"people_current\":20,\n        \"start_time\":\"2015-11-12 00:00\",\n        \"during_time\":\"60\"(分钟),\n        \"descriptioniption\":\"xxxxxxxxxxxx\"\n        \"spotlist\":[{},{},{}...]，\n        \"loc_x\":10.0,\n        \"loc_y\":10.0,\n        \"loc_province\":\"湖北\",\n        \"loc_road\":\"xxx\",\n        \"loc_city\":\"xxx\",\n    }*/\n    /*\n    {\n        \"name\":\"xxx\",\n        \"user_key\": \"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    }\n    */\n}",
+          "content": "{\n    \"list\":[{},{}...]\n    /*{\n        \"name\":\"华科僵尸跑\",\n        \"id\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n        \"person_limit\":50,\n        \"person_current\":20,\n        \"start_time\":\"1450527299\",\n        \"end_time\":\"1450527299\"(分钟),\n        \"descriptioniption\":\"xxxxxxxxxxxx\"\n        \"spotlist\":[{},{},{}...]，\n        \"loc_x\":10.0,\n        \"loc_y\":10.0,\n        \"loc_province\":\"湖北\",\n        \"loc_road\":\"xxx\",\n        \"loc_city\":\"xxx\",\n        \"type\":0(普通)/1(hot)\n    }*/\n    /*\n    {\n        \"name\":\"xxx\",\n        \"user_key\": \"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    }\n    */\n}",
           "type": "json"
         }
       ]
@@ -412,7 +412,7 @@ define({ "api": [
       "examples": [
         {
           "title": ":",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"activities_id\":\"\",\n    \"finish_time\":\"2015-10-10 21:22;22\",\n    \"spots\":[{},{}...],\n    //spots 的形式参见 活动列表\n}",
+          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"activity_id\":\"\",\n    \"finish_time\":\"1450527299\",\n    \"reached_spotlist\":[{},{}...],\n    //spots 的形式参见 活动列表\n}",
           "type": "json"
         }
       ]
@@ -519,8 +519,8 @@ define({ "api": [
   {
     "type": "post",
     "url": "/users/",
-    "title": "登录/注册",
-    "name": "_____",
+    "title": "登录",
+    "name": "__",
     "version": "0.2.0",
     "group": "User",
     "parameter": {
@@ -766,7 +766,7 @@ define({ "api": [
     "type": "post",
     "url": "/verify/",
     "title": "手机验证",
-    "name": "_____",
+    "name": "________",
     "version": "0.2.0",
     "group": "Verify",
     "parameter": {
