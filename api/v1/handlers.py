@@ -2,7 +2,7 @@ import tornado.web
 from tornado import gen
 import json
 import database as DB
-from database import User,UserInfo,Event,Points
+from database import User,UserInfo,Event,Points, UserEvent
 from utils import encrytovalue
 import base64
 from collections import defaultdict
@@ -38,7 +38,7 @@ class JSONHandler(BaseHandler):
                 for key,value in json_args.items():
                     self.json_args[key] = value
             except Exception as e:
-                print("json arguments error")
+                print("json arguments error",e)
 
     def write_success(self):
         self.write(json.dumps(self.res))
@@ -100,9 +100,12 @@ class MixinHandler(object):
         e['host'] = event.host
         e['type'] = event.type
         e['points'] = []
-        for point in e.points:
-            p = self.extract_point(point)
-            e['points'].append(p)
+        try:
+            for point in e.points:
+                p = self.extract_point(point)
+                e['points'].append(p)
+        except Exception as exc:
+            print(exc)
         return e
 
 
@@ -149,7 +152,8 @@ class UserDetailHandler(JSONHandler, MixinHandler):
         if user:
             #use user's function to change info
             self.change_user(user.info[0])
-            self.extract_user(user)
+            self.extract_user(user.info[0])
+            self.session.add(user)
             self.session.commit()
             self.write_success()
         else:
@@ -162,34 +166,33 @@ class ActivitiesHandler(JSONHandler, MixinHandler):
         province = self.get_argument('loc_province','')
         page = self.get_argument('page','')
         if province and page:
-            self.res['list'] = []
             try:
                 page = int(page)
                 page = page-1 if page else page
             except:
                 page = 0
-            loc_events = self.session.query(Event).filter('loc_province'==province).\
+            self.res['list'] = []
+            loc_events = self.session.query(Event).filter(Event.loc_province==province).\
                     offset(page*10).limit(10)
             if loc_events.count():
                 for event in loc_events:
                     e = self.extract_event(event)
                     self.res['list'].append(e)
-                self.write_success()
                 # how to get hot?
-            else:
-                self.write_error('not activity')
+            self.write_success()
+        else:
+            self.write_error("arguments error")
 
     def post(self):
         key = self.json_args['key']
-        user = self.session.get(key)
+        user = self.session.query(User).get(key)
         if user:
-            during_time = self.json_args['during_time']
             event = Event(logo=user.info[0].img_url,
-                        title       ='',
-                        during_time  =during_time,
+                        title       =self.json_args['title'],
+                        during_time =self.json_args['during_time'],
                         desc        =self.json_args['description'],
                         loc_x       =self.json_args['loc_x'],
-                        loc_y       =self.json_arg['loc_y'],
+                        loc_y       =self.json_args['loc_y'],
                         loc_province=self.json_args['loc_province'],
                         loc_city    =self.json_args['loc_city'],
                         loc_distract=self.json_args['loc_distract'],
@@ -198,16 +201,22 @@ class ActivitiesHandler(JSONHandler, MixinHandler):
                         start_time        =self.json_args['start_time'],
                         host        =user.info[0].id
                         )
-            for p in self.json_args['points']:
-                try:
-                    point = Points(x    =p['x'],
-                                y       =p['y'],
-                                message =p['message'],
-                                radius  =p['radius'],
-                                order   =p['order'])
-                    event.points.append(point)
-                except:
-                    self.write_error('some points error')
+            self.session.add(event)
+            points = self.json_args['spotlist']
+            if points:
+                for p in points:
+                    try:
+                        point = Points(x    =p['x'],
+                                    y       =p['y'],
+                                    message =p['message'],
+                                    radius  =p['radius'],
+                                    order   =p['order'])
+                        self.session.add(point)
+                        event.points.append(point)
+                    except:
+                        self.res['message'] = 'some points error'
+            else:
+                event.points = []
             self.session.add(event)
             self.session.commit()
             self.write_success()
@@ -223,8 +232,10 @@ class ActivityDetailHandler(JSONHandler, MixinHandler):
         if id and key:
             event = self.session.query(Event).get(id)
             if event :
-                if event.host.user.id == key:
-                    event.delete()
+                print(event.hoster.user_id,key)
+                if event.hoster.user_id == key:
+                    self.session.delete(event)
+                    self.session.commit()
                     self.write_success()
                 else:
                     self.write_error('permission denied')
@@ -241,11 +252,17 @@ class ActivityDetailHandler(JSONHandler, MixinHandler):
             user = self.session.query(User).get(key)
             event = self.session.query(Event).get(id)
             if user and event:
-                if event not in user.info.join_event:
-                    user.info.join_event.append(event)
+                info = user.info[0]
+                if event.id not in (event.event_id for event in info.join_event):
+                    userevent = UserEvent()
+                    userevent.event = event
+                    info.join_event.append(userevent)
+                    event.person_current += 1
                     self.session.merge(user)
                     self.session.merge(event)
                     self.session.commit()
+                    self.extract_evnet(event)
+                    self.write_success()
                 else:
                     self.write_error('user has already join the event')
             else:
@@ -278,7 +295,7 @@ class SplashHandler(JSONHandler):
         self.res['url'] = '/static/common.jpg'
         self.write_success()
 
-class UserHostHandler(JSONHandler):
+class UserHostHandler(JSONHandler, MixinHandler):
 
     def get(self):
         key = self.get_argument('key','')
@@ -286,7 +303,7 @@ class UserHostHandler(JSONHandler):
             user = self.session.query(User).get(key)
             if user:
                 self.res['list'] = []
-                for event in user.info.host_event:
+                for event in user.info[0].host_event:
                     e = self.extract_event(event)
                     self.res['list'].append(e)
                 self.write_success()
@@ -303,14 +320,30 @@ class UserAttendHandler(JSONHandler, MixinHandler):
             user = self.session.query(User).get(key)
             if user:
                 self.res['list'] = []
-                for event in user.info.join_event:
-                    e = self.extract_event(event)
+                for event in user.info[0].join_event:
+                    e = self.extract_event(event.the_event)
                     self.res['list'].append(e)
                 self.write_success()
             else:
                 self.write_error("user not exist")
         else:
             self.write_error('arguments error')
+
+    def post(self):
+        key = self.json_args['key']
+        activity_id = self.json_args['activity_id']
+        if key and activity_id:
+            user = self.session.query(User).get(key)
+            event = self.session.query(Event).get(activity_id)
+            if user and event:
+                event.userinfo_id.append(user)
+                self.merge(event)
+                self.write_success()
+            else:
+                self.write_error('user or event not exists')
+        else:
+            self.write_error('arguments error')
+
 
 class ActivityAttendHandler(JSONHandler, MixinHandler):
 
@@ -322,11 +355,35 @@ class ActivityAttendHandler(JSONHandler, MixinHandler):
                 self.res['person_list'] = []
                 for person in event.userinfo_id:
                     p = {}
-                    p['name'] = person.nickname
-                    p['key'] = person.user_id.id
+                    p['name'] = person.the_user.nickname
+                    p['key'] = person.the_user.user_id
                     self.res['person_list'].append(p)
                 self.write_success()
             else:
                 self.write_error("activity not exist")
         else:
             self.write_error("arguments error")
+
+    def post(self):
+        id = self.json_args.get('activity_id')
+        key = self.json_args['key']
+        finish_time = self.json_args['finish_time']
+        reached_spotlist = self.json_args['reached_spotlist']
+        if id and key and reached_spotlist and reached_spotlist:
+            user = self.session.query(User).get(key)
+            event = self.session.query(Event).get(id)
+            userevent = user.info[0].join_event
+            if event and user and event.id in (event.event_id for event in userevent):
+                userevent.finish_time = finish_time
+                finish_points = 0
+                for point in reached_spotlist:
+                    finish_points += 2**point['order']
+                userevent.finish_points =  finish_points
+                self.session.merge(user)
+                self.session.merge(event)
+                self.session.commit()
+                self.write_success()
+            else:
+                self.write_error('user have not attend the activity')
+        else:
+            self.write_error('arguments error')

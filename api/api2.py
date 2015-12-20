@@ -106,8 +106,6 @@
         "sex":"male",
         "birthday":"2015-02-11"
         "image":"http://run.monkliu.me:8888/static/1.jpg",
-        "event_attend":[{},{},...],//{}内容参考 活动细节
-        "event_launch":[{},{},...],//同上
     }
 
 @apiError {String} message 错误信息.
@@ -171,7 +169,7 @@
             "person_current":20,
             "start_time":"1450527299",
             "end_time":"1450527299"(分钟),
-            "descriptioniption":"xxxxxxxxxxxx"
+            "description":"xxxxxxxxxxxx"
             "spotlist":[{},{},{}...]，
             "loc_x":10.0,
             "loc_y":10.0,
@@ -362,7 +360,7 @@
 
 @apiSuccessExample Response 200:
     {
-        "acticity_list":[{}...]
+        "list":[{}...]
         //活动细节看 活动列表
     }
 
@@ -385,7 +383,7 @@
 
 @apiSuccessExample Response 200:
     {
-        "acticity_list":[{}...]
+        "list":[{}...]
         //活动细节看 活动列表
     }
 
@@ -409,7 +407,7 @@
 
 @apiSuccessExample Response 200:
     {
-        "people_list":[{}...]
+        "person_list":[{}...]
         //{
             "name":"xxxx",
             "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff"

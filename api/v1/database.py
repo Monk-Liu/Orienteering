@@ -14,14 +14,9 @@ from utils import encrytovalue
 def Redis():
     return redis.Redis('localhost',6379,0)
 
-
-
-
 engine = sqlalchemy.engine_from_config(SQLINFO)
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
-
-
 
 # two way to make one to one relationship backref or foreignkey
 '''
@@ -37,12 +32,17 @@ ToDo:   1.set Column as unicode,text
 class UserEvent(Base):
     __tablename__ = 'user_event'
 
-    #id = Column(Integer, primary_key=True)
     event_id = Column(String(50), ForeignKey('events.id'),primary_key=True)
     user_id  = Column(Integer, ForeignKey('userinfo.id'),primary_key=True)
     finish_time = Column(String(20))
     finish_points = Column(Integer) # 本来是要有 和point的对应关系的，但是可以用另一种、
     #更快的方法实现的， 主要是 类似 linux 权限管理的 1 4 7 那些数字一样的想法
+    event = relationship("Event")
+    parent = relationship("UserInfo")
+    
+    def __init__(self, finish_time='', finish_points=0):
+        self.finish_time = finish_time
+        self.finish_points = finish_points
     
 
 
@@ -75,7 +75,7 @@ class UserInfo(Base):
     sex = Column(Integer)
     #so what the lambda used for? http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#one-to-one
     join_event = relationship('UserEvent',
-                              backref='participator',
+                              backref='the_user',
                               passive_deletes = True
                               )
     host_event = relationship('Event',backref='hoster',passive_deletes=True)
@@ -125,6 +125,7 @@ class Event(Base):
                  loc_province=None,person_limit=50,
                 loc_distract=None,loc_road=None,loc_city=None,
                  logo=None,host=None,type=0):
+        self.id = str(uuid.uuid4())
         self.title      = title
         self.desc       = desc
         self.start_time = start_time
@@ -136,7 +137,7 @@ class Event(Base):
         self.loc_distract = loc_distract
         self.loc_city = loc_city
         self.person_limit = person_limit
-        self.person_current = 1
+        self.person_current = 0
         self.logo = logo
         self.host = host 
         self.type = type
@@ -156,9 +157,10 @@ class Points(Base):
     order = Column(Integer)
     event_re = Column(String(50),ForeignKey('events.id'))
 
-    def __init__(self,x=None,y=None,message=None,radius=None,type=1):
+    def __init__(self,x=None,y=None,message=None,radius=None,order=None,type=1):
         self.x = x
         self.y = y
+        self.order = order
         self.radius = radius
         self.message = message
         self.type=type

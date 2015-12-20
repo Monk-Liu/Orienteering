@@ -138,7 +138,7 @@
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{\n    \"list\":[{},{}...]\n    /*{\n        \"name\":\"华科僵尸跑\",\n        \"id\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n        \"person_limit\":50,\n        \"person_current\":20,\n        \"start_time\":\"1450527299\",\n        \"end_time\":\"1450527299\"(分钟),\n        \"descriptioniption\":\"xxxxxxxxxxxx\"\n        \"spotlist\":[{},{},{}...]，\n        \"loc_x\":10.0,\n        \"loc_y\":10.0,\n        \"loc_province\":\"湖北\",\n        \"loc_road\":\"xxx\",\n        \"loc_city\":\"xxx\",\n        \"type\":0(普通)/1(hot)\n    }*/\n    /*\n    {\n        \"name\":\"xxx\",\n        \"user_key\": \"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    }\n    */\n}",
+          "content": "{\n    \"list\":[{},{}...]\n    /*{\n        \"name\":\"华科僵尸跑\",\n        \"id\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n        \"person_limit\":50,\n        \"person_current\":20,\n        \"start_time\":\"1450527299\",\n        \"end_time\":\"1450527299\"(分钟),\n        \"description\":\"xxxxxxxxxxxx\"\n        \"spotlist\":[{},{},{}...]，\n        \"loc_x\":10.0,\n        \"loc_y\":10.0,\n        \"loc_province\":\"湖北\",\n        \"loc_road\":\"xxx\",\n        \"loc_city\":\"xxx\",\n        \"type\":0(普通)/1(hot)\n    }*/\n    /*\n    {\n        \"name\":\"xxx\",\n        \"user_key\": \"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    }\n    */\n}",
           "type": "json"
         }
       ]
@@ -196,7 +196,7 @@
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{\n    \"people_list\":[{}...]\n    //{\n        \"name\":\"xxxx\",\n        \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\"\n    }\n}",
+          "content": "{\n    \"person_list\":[{}...]\n    //{\n        \"name\":\"xxxx\",\n        \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\"\n    }\n}",
           "type": "json"
         }
       ]
@@ -243,7 +243,7 @@
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{\n    \"acticity_list\":[{}...]\n    //活动细节看 活动列表\n}",
+          "content": "{\n    \"list\":[{}...]\n    //活动细节看 活动列表\n}",
           "type": "json"
         }
       ]
@@ -290,7 +290,7 @@
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{\n    \"acticity_list\":[{}...]\n    //活动细节看 活动列表\n}",
+          "content": "{\n    \"list\":[{}...]\n    //活动细节看 活动列表\n}",
           "type": "json"
         }
       ]
@@ -622,7 +622,7 @@
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{\n    \"nickname\":\"panda\",\n    \"sex\":\"male\",\n    \"birthday\":\"2015-02-11\"\n    \"image\":\"http://run.monkliu.me:8888/static/1.jpg\",\n    \"event_attend\":[{},{},...],//{}内容参考 活动细节\n    \"event_launch\":[{},{},...],//同上\n}",
+          "content": "{\n    \"nickname\":\"panda\",\n    \"sex\":\"male\",\n    \"birthday\":\"2015-02-11\"\n    \"image\":\"http://run.monkliu.me:8888/static/1.jpg\",\n}",
           "type": "json"
         }
       ]
