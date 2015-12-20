@@ -40,7 +40,7 @@ class UserEvent(Base):
     #id = Column(Integer, primary_key=True)
     event_id = Column(String(50), ForeignKey('events.id'),primary_key=True)
     user_id  = Column(Integer, ForeignKey('userinfo.id'),primary_key=True)
-    finish_time = Column(Integer)
+    finish_time = Column(String(20))
     finish_points = Column(Integer) # 本来是要有 和point的对应关系的，但是可以用另一种、
     #更快的方法实现的， 主要是 类似 linux 权限管理的 1 4 7 那些数字一样的想法
     
@@ -106,10 +106,10 @@ class Event(Base):
     loc_city = Column(Integer)
     loc_road = Column(String(400))
     desc = Column(Text)  
-    people_limit = Column(Integer)
-    people_current= Column(Integer)
-    date = Column(DateTime)
-    duringtime = Column(Integer)
+    person_limit = Column(Integer)
+    person_current= Column(Integer)
+    start_time = Column(String(20))
+    during_time = Column(String(20))
     type = Column(Integer) 
     logo = Column(String(3000))
     host = Column(Integer,ForeignKey('userinfo.id'))
@@ -120,23 +120,26 @@ class Event(Base):
             passive_deletes = True
         )
 
-    def __init__(self,title=None,desc=None,date=None,duringtime=60,
-        loc_x=None,loc_y=None,loc_province=None,people_limit=50,
-        loc_distract=None,loc_road=None,loc_city=None,logo=None,host=None):
-        self.title = title
-        self.desc = desc
-        self.date = date
-        self.duringtime = duringtime
+    def __init__(self,title=None,desc=None,start_time=None,
+                 during_time=60,loc_x=None,loc_y=None,
+                 loc_province=None,person_limit=50,
+                loc_distract=None,loc_road=None,loc_city=None,
+                 logo=None,host=None,type=0):
+        self.title      = title
+        self.desc       = desc
+        self.start_time = start_time
+        self.during_time= during_time
         self.loc_x = loc_x
         self.loc_y = loc_y
         self.loc_province = loc_province
         self.loc_road = loc_road
         self.loc_distract = loc_distract
         self.loc_city = loc_city
-        self.people_limit = people_limit
-        self.people_current = 1
+        self.person_limit = person_limit
+        self.person_current = 1
         self.logo = logo
         self.host = host 
+        self.type = type
 
     def __repr__(self):
         return "<Event (id='%s',title='%s')"%(self.id,self.title)

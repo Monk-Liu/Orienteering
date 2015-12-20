@@ -2,6 +2,7 @@ from handlers import BaseHandler,JSONHandler,B64Handler
 from tornado import gen,httpclient
 from config import GEETEST,LEANCLOUD
 from hashlib import md5 
+import base64
 from tornado.httputil import HTTPHeaders
 import tornado.web
 import json
@@ -100,6 +101,9 @@ class LeanCloudVerifyHandler(B64Handler):
     @gen.coroutine
     def get(self):
         phone = self.get_argument("phone",'')
+        if not isinstance(phone,bytes):
+            phone = phone.encode()
+        phone = base64.b64decode(phone).decode('utf8')
         if not phone:
             return
         res = yield self.sendSMS(phone)

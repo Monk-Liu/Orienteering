@@ -43,9 +43,9 @@ class JSONHandler(BaseHandler):
     def write_success(self):
         self.write(json.dumps(self.res))
     
-    def write_error(self,mesg):
-        self.set_status(400,reason=mesg)
-        self.res['mesg'] = mesg
+    def write_error(self,message):
+        self.set_status(400,reason=message)
+        self.res['message'] = message
         self.write(json.dumps(self.res))
 
 class B64Handler(JSONHandler):
@@ -55,6 +55,56 @@ class B64Handler(JSONHandler):
         self.request.body = base64.b64decode(self.request.body)
         print(self.request.body)
         super(B64Handler,self).prepare()
+
+
+class MixinHandler(object):
+
+    def extract_user(self,info):
+        self.res['nickname'] = info.nickname
+        self.res['sex'] = info.sex
+        self.res['age'] = info.age
+        self.res['image'] = info.img_url
+
+    def change_user(self,info):
+        info.nickname = self.json_args['nickname']
+        info.sex = self.json_args['sex']
+        info.birthday = self.json_args['birthday']
+        info.img_url  =self.json_args['image']
+
+    def extract_point(self, point):
+        p = {}
+        p['x'] = point.x
+        p['y'] = point.y
+        p['message'] = point.message
+        p['type'] = point.type
+        p['radius'] = point.radius
+        p['order'] = point.order
+        return p
+
+    def extract_event(self,event):
+        e = {}
+        e['title'] = event.title
+        e['id'] = event.id
+        e['during_time'] = event.during_time
+        e['description'] = event.desc
+        e['start_time'] = event.start_time
+        e['loc_x'] = event.loc_x
+        e['loc_y'] = event.loc_y
+        e['loc_province'] = event.loc_province
+        e['loc_city'] = event.loc_city
+        e['loc_road'] = event.loc_road
+        e['loc_distract'] = event.loc_distract
+        e['person_limit'] = event.person_limit
+        e['person_current'] = event.person_current
+        e['logo'] = event.logo
+        e['host'] = event.host
+        e['type'] = event.type
+        e['points'] = []
+        for point in e.points:
+            p = self.extract_point(point)
+            e['points'].append(p)
+        return e
+
 
 
 class UserHandler(B64Handler):
@@ -79,19 +129,8 @@ class UserHandler(B64Handler):
             self.write_error('arguments error')
             
 
-class UserDetailHandler(JSONHandler):
+class UserDetailHandler(JSONHandler, MixinHandler):
 
-    def extract_user(self,info):
-        self.res['nickname'] = info.nickname
-        self.res['sex'] = info.sex
-        self.res['age'] = info.age
-        self.res['image'] = info.img_url
-        
-    def change_user(self,info):
-        info.nickname = self.json_args['nickname']
-        info.sex = self.json_args['sex']
-        info.birthday = self.json_args['birthday']
-        info.img_url  =self.json_args['image']
 
     def get(self,uid):
         user = self.session.query(User).get(uid)
@@ -116,42 +155,14 @@ class UserDetailHandler(JSONHandler):
         else:
             self.write_error('user not found')
 
-class ActivitiesHandler(JSONHandler):
+class ActivitiesHandler(JSONHandler, MixinHandler):
 
-    def extract_event(self,event):
-        e = {}
-        e['title'] = event.title
-        e['id'] = event.id
-        e['duringtime'] = event.duringtime
-        e['desc'] = event.desc
-        e['date'] = event.date
-        e['loc_x'] = event.loc_x
-        e['loc_y'] = event.loc_y
-        e['loc_province'] = event.loc_province
-        e['loc_city'] = event.loc_city
-        e['loc_road'] = event.loc_road
-        e['loc_distract'] = event.loc_distract
-        e['people_limit'] = event.people_limit
-        e['people_current'] = event.people_current
-        e['logo'] = event.logo
-        e['host'] = event.host
-        e['points'] = []
-        for point in e.points:
-            p = {}
-            p['x'] = point.x
-            p['y'] = point.y
-            p['message'] = point.message
-            p['type'] = point.type
-            p['radius'] = point.radius
-            e['points'].append(p)
-        return e
 
     def get(self):
         province = self.get_argument('loc_province','')
         page = self.get_argument('page','')
         if province and page:
-            self.res['local'] = []
-            self.res['hot'] = []
+            self.res['list'] = []
             try:
                 page = int(page)
                 page = page-1 if page else page
@@ -162,8 +173,9 @@ class ActivitiesHandler(JSONHandler):
             if loc_events.count():
                 for event in loc_events:
                     e = self.extract_event(event)
-                    self.res['local'].append(e)
+                    self.res['list'].append(e)
                 self.write_success()
+                # how to get hot?
             else:
                 self.write_error('not activity')
 
@@ -171,30 +183,28 @@ class ActivitiesHandler(JSONHandler):
         key = self.json_args['key']
         user = self.session.get(key)
         if user:
-            try:
-                duringtime = int(self.json_args['duringtime'])
-            except:
-                duringtime = 60
+            during_time = self.json_args['during_time']
             event = Event(logo=user.info[0].img_url,
-                        title='',
-                        duringtime=duringtime,
-                        desc=self.json_args['description'],
-                        loc_x=self.json_args['loc_x'],
-                        loc_y=self.json_arg['loc_y'],
+                        title       ='',
+                        during_time  =during_time,
+                        desc        =self.json_args['description'],
+                        loc_x       =self.json_args['loc_x'],
+                        loc_y       =self.json_arg['loc_y'],
                         loc_province=self.json_args['loc_province'],
-                        loc_city=self.json_args['loc_city'],
+                        loc_city    =self.json_args['loc_city'],
                         loc_distract=self.json_args['loc_distract'],
-                        loc_road=self.json_args['loc_road'],
-                        people_limit=self.json_args['people_limit'],
-                        date=self.json_args['time'],
-                        host=user.info[0].id
+                        loc_road    =self.json_args['loc_road'],
+                        person_limit=self.json_args['person_limit'],
+                        start_time        =self.json_args['start_time'],
+                        host        =user.info[0].id
                         )
             for p in self.json_args['points']:
                 try:
-                    point = Points(x=p['x'],
-                                y=p['y'],
-                                message=p['message'],
-                                radius=['radius'])
+                    point = Points(x    =p['x'],
+                                y       =p['y'],
+                                message =p['message'],
+                                radius  =p['radius'],
+                                order   =p['order'])
                     event.points.append(point)
                 except:
                     self.write_error('some points error')
@@ -205,10 +215,10 @@ class ActivitiesHandler(JSONHandler):
             self.write_error('permission denied')
 
 
-class ActivityDetailHandler(JSONHandler):
+class ActivityDetailHandler(JSONHandler, MixinHandler):
     
     def get(self):
-        id = self.get_argument("id","")
+        id = self.get_argument("activity_id","")
         key = self.get_argument("key","")
         if id and key:
             event = self.session.query(Event).get(id)
@@ -226,7 +236,7 @@ class ActivityDetailHandler(JSONHandler):
 
     def post(self):
         key = self.json_args["key"]
-        id = self.json_args["id"]
+        id = self.json_args["activity_id"]
         if key and id:
             user = self.session.query(User).get(key)
             event = self.session.query(Event).get(id)
@@ -268,3 +278,55 @@ class SplashHandler(JSONHandler):
         self.res['url'] = '/static/common.jpg'
         self.write_success()
 
+class UserHostHandler(JSONHandler):
+
+    def get(self):
+        key = self.get_argument('key','')
+        if key:
+            user = self.session.query(User).get(key)
+            if user:
+                self.res['list'] = []
+                for event in user.info.host_event:
+                    e = self.extract_event(event)
+                    self.res['list'].append(e)
+                self.write_success()
+            else:
+                self.write_error('user not exists')
+        else:
+            self.write_eror('No match pattern found')
+
+class UserAttendHandler(JSONHandler, MixinHandler):
+
+    def get(self):
+        key = self.get_argument('key','')
+        if key:
+            user = self.session.query(User).get(key)
+            if user:
+                self.res['list'] = []
+                for event in user.info.join_event:
+                    e = self.extract_event(event)
+                    self.res['list'].append(e)
+                self.write_success()
+            else:
+                self.write_error("user not exist")
+        else:
+            self.write_error('arguments error')
+
+class ActivityAttendHandler(JSONHandler, MixinHandler):
+
+    def get(self):
+        id = self.get_argument('activity_id','')
+        if id :
+            event = self.session.query(Event).get(id)
+            if event:
+                self.res['person_list'] = []
+                for person in event.userinfo_id:
+                    p = {}
+                    p['name'] = person.nickname
+                    p['key'] = person.user_id.id
+                    self.res['person_list'].append(p)
+                self.write_success()
+            else:
+                self.write_error("activity not exist")
+        else:
+            self.write_error("arguments error")
