@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<title>显示用户</title>
+{% end %}
+
+{% block table %}
+<div class='mid'>
+  <table class='table table-hover table-striped table-bordered'>
+    <tr><td><strong>Id</strong></td><td><strong>手机</strong></td><td><strong>密码</strong></td><td><strong>昵称</strong></td><td><strong>性别</strong></td><td><strong>操作</strong></td></tr
+    {% for user in users %}
+      <tr>
+      <td>{{user.id}}</td>
+      <td>{{user.phone}}</td>
+      <td>{{user.password}}</td>
+      <td>{{user.info[0].nickname}}</td>
+      <td>{% if user.info[0].sex %}男{% else %}女{% end %}</td>
+      <td>
+        <ul class="ul-op">
+          <li><a href="/show/events/relation/?type=join&id={{ user.id }}">参加的活动</a></li>
+          <li><a href="/show/events/relation/?type=host&id={{ user.id }}">组织的活动</a></li>
+{#          <li><form action='/show/user/' method='POST'>#}
+{#            <input type='hidden' name='key'></input>#}
+{#            <input type='submit' value='check' class='btn btn-primary btn-sm'>#}
+{#          </form></li>#}
+            </li>
+        </ul>
+      </td>
+      </tr>
+    {% end %}
+  </table>
+
+</div>
+<div class='bottom'>
+<ul>
+<li>{% if prepage %}
+        <button class='btn btn-default btn-info'><a href='/show/user/?page={{prepage}}'>上一页</a></button>
+    {% end %}
+</li>
+<li>{% if nextpage %}
+        <button class='btn btn-default btn-info'><a href='/show/user/?page={{nextpage}}'>下一页</a></button>
+    {% end %}
+</li>
+</ul>
+</div>
+{% end %}

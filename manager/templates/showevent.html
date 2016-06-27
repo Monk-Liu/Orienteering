@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<title>活动列表</title>
+{% end %}
+
+{% block table %}
+<div class='mid'>
+  <table class='table table-hover table-striped table-bordered'>
+    <tr><td><strong>Id</strong></td><td><strong>标题</strong></td><td><strong>描述信息</strong></td><td><strong>城市</strong></td><td><strong>人数限制</strong></td><td><strong>参加人数</strong></td>
+      <td><strong>操作</strong></td></tr>
+    {% for event in events %}
+      <tr>
+      <td>{{event.id}}</td>
+      <td>{{event.title}}</td>
+      <td>{{event.description}}</td>
+      <td>{{event.loc_province}}</td>
+      <td>{{event.person_limit}}</td>
+      <td>{{event.person_current}}</td>
+      <td>{{event.type}}</td>
+      <td>
+        <ul class="ul-op">
+          <li><a href="/show/users/relation/?type=join&id={{ event.id }}">参加的用户</a></li>
+{#          <li><a href="/show/users/relation/?type=host&id={{ event.id }}">组织的用户</a></li>#}
+            <li><a href="/show/points/?activity_id={{ event.id }}">活动的点</a></li>
+          <li><form action='/show/events/' method='POST'>
+            <input type='hidden' name='id' value="{{ event.id }}"></input>
+            <input type='submit' value='删除' class='btn btn-primary btn-sm'>
+          </form></li>
+        </ul>
+      </td>
+      </tr>
+    {% end %}
+  </table>
+
+</div>
+<div class='bottom'>
+<ul>
+<li>{% if prepage %}
+        <button class='btn btn-default btn-info'><a href='/show/event/?page={{prepage}}'>上一页</a></button>
+    {% end %}
+</li>
+<li>{% if nextpage %}
+        <button class='btn btn-default btn-info'><a href='/show/event/?page={{nextpage}}'>下一页</a></button>
+    {% end %}
+</li>
+</ul>
+</div>
+{% end %}

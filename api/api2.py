@@ -2,16 +2,22 @@
 @apiDefine MyError 
 
 @apiError {String} message 出错信息
-@apiErrorExample Response 400:
+@apiErrorExample Response 200:
     {
-        "message":"错误信息（...）"
+        "event":1/2/3,
+        "message":"错误信息（...）",
+        "data":{}
     }
 """"""
 """"""
 @apiDefine MySuccess
 
 @apiSuccessExample Response 200:
-    {}
+    {
+        "event":0,
+        "message":'',
+        "data":{}
+    }
 """"""
 
 """"""
@@ -32,13 +38,19 @@
 @apiSuccess {String} key 用户的key
 @apiSuccessExample Response (success) 200:
     {
+        "event":0,
+        "message":''
+        "data":{
         "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff"
     }
+}
 
 @apiError {String} message 错误信息.
 @apiErrorExample Response (test) 400:
     {
-        "message":"错误信息(....)"
+        "event":1/2/3,
+        "message":"错误信息(....)",
+        "data":{}
     }
 
 """"""
@@ -54,12 +66,18 @@
         "phone":Base64("15927278893")
 
 @apiSuccessExample Response (success) 200:
-    {}
+    {
+        "event":0,
+        "message":"",
+        "data":{}
+    }
 
 @apiError {String} message 错误信息.
 @apiErrorExample Response (error) 400:
     {
+        "event":1/2/3,
         "message":"错误信息（...）",
+        "data":{}
     }
 """"""
 
@@ -82,12 +100,18 @@
 @apiSuccess {String} key 用户标识符
 @apiSuccessExample Response (success) 200:
     {
-        "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
+        "event":0,
+        "message":'',
+        "data":{
+            "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
     }
+}
 
 @apiErrorExample Response (success) 400:
     {
-        "message":"错误信息（...）"
+        "event":1,
+        "message":"错误信息（...）",
+        "data":{},
     }
 """"""
 
@@ -102,16 +126,25 @@
 
 @apiSuccessExample Response 200:
     {
-        "nickname":"panda",
-        "sex":"male",
-        "birthday":"2015-02-11"
-        "image":"http://run.monkliu.me:8888/static/1.jpg",
+        "event":0,
+        "message":'',
+        "data":{
+            "nickname":"panda",
+            "sex":1,# 1 for  male and 0 for female
+            "birthday":"2015-02-11"
+            "avater":"http://run.monkliu.me:8888/static/1.jpg",
+            "height":170,
+            "weight":60,
     }
+}
+
 
 @apiError {String} message 错误信息.
 @apiErrorExample Response 400:
     {
-        "message":"错误信息（...）"
+        "event":1,
+        "message":"错误信息（...）",
+        "data":{}
     }
 """"""
 
@@ -128,18 +161,26 @@
         "nickname":"panda",
         "sex":"male",
         "birthday":"2015-02-11",
-        "image":"http://run.monkliu.me:8888/staitc/1.jpg"
-        //image 是客户端调用七牛后图片在七牛的url
+        "avater":"http://run.monkliu.me:8888/staitc/1.jpg"
+        "height":170,
+        "weight":60,
+        //avater 是客户端调用七牛后图片在七牛的url
     }
 
 
 @apiSuccessExample Response 200:
-    {}
+    {
+        "event":0,
+        "message":"",
+        "data":{}
+    }
 
 @apiError {String} message 错误信息.
 @apiErrorExample Response 400:
     {
+        "event":1/2/3,
         "message":"错误信息（用户不存在/权限不够）"
+        "data":{}
     }
 """"""
 
@@ -161,29 +202,26 @@
 
 @apiSuccessExample Response 200:
     {
-        "list":[{},{}...]
-        /*{
-            "name":"华科僵尸跑",
-            "id":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
-            "person_limit":50,
-            "person_current":20,
-            "start_time":"1450527299",
-            "end_time":"1450527299"(分钟),
-            "description":"xxxxxxxxxxxx"
-            "spotlist":[{},{},{}...]，
-            "loc_x":10.0,
-            "loc_y":10.0,
-            "loc_province":"湖北",
-            "loc_road":"xxx",
-            "loc_city":"xxx",
-            "type":0(普通)/1(hot)
-        }*/
-        /*
-        {
-            "name":"xxx",
-            "user_key": "1a941e54-e22e-4f36-bec7-a472e3ee87ff",
-        }
-        */
+        "event":0,
+        "message":"",
+        "data":{
+            "list":[{},{}...]
+            /*{
+                "name":"华科僵尸跑",
+                "id":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
+                "person_limit":50,
+                "person_current":20,
+                "start_time":"1450527299",
+                "end_time":"1450527299"(分钟),
+                "description":"xxxxxxxxxxxx"
+                "spotlist":[{},{},{}...]，
+                "loc_x":10.0,
+                "loc_y":10.0,
+                "loc_province":"湖北",
+                "loc_road":"xxx",
+                "loc_city":"xxx",
+                "type":0(普通)/1(hot)
+            }*/
     }
 @apiUse MyError
 
@@ -220,9 +258,59 @@
     }
 
 @apiSuccessExample Response 200:
-    {}
+    {
+        "event":0,
+        "message":"",
+        "data":{
+            "id":"xxxxxxxxxxxxxxxxxxxxxxxx"
+        }
+    }
 @apiUse MyError
+""""""
 
+""""""
+@api {post} /activity/add/ 修改活动
+@apiName ChangeActivity
+@apiVersion 0.2.0
+@apiGroup Activities
+
+@apiParamExample {json} Resquest-Example:
+    {
+        "id":"xxxxxxxxxxxxxx"//活动id
+        "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
+        "name":"华科僵尸跑",
+        "person_limit":50,
+        "start_time":"1450527299",
+        "end_time":"1450527299"(分钟),
+        "description":"xxxxxxxxxxxx"
+        "spotlist":[{},{},{}...]，
+        "loc_x":10.0,
+        "loc_y":10.0,
+        "loc_province":"湖北",
+        "loc_road":"xxx",
+        "loc_city":"xxx",
+        "logo":"" //多了logo字段
+        //关于 spotlist 里面的{}
+        /*{ "x":120.00,
+            "y":40.00,
+           "type":1,
+           "radius":100,
+           "message":"xxxxx",
+           "order":1,
+          }*/
+    }
+
+@apiSuccessExample Response 200:
+    {
+        "event":0,
+        "message":"",
+        "data":{
+            "id":"xxxxxxxxxxxxxxxxxxxxx"
+        }
+
+    }
+@apiUse MyError
+""""""
 """"""
 
 """"""
@@ -235,11 +323,16 @@
 @apiParam {String} key 用户标识符.
 @apiParam {String} activity_id 活动标识符.
 @apiParamExample {json} Request-Example:
-        "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
-        "activity_id":"d5323e98-65f8-435b-a889-0c289f5835cb"
+    {    "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
+        "activity_id":"d5323e98-65f8-435b-a889-0c289f5835cb",
+    }
 
 @apiSuccessExample Response 200:
-    {}
+    {
+        "event":0,
+        "message":'',
+        "data":{}
+    }
 @apiUse MyError
 """"""
 
@@ -260,12 +353,18 @@
     }
 
 @apiSuccessExample Response 200:
-    {}
+    {
+        "event":0,
+        "message":'',
+        "data":{}
+    }
 
 @apiError {String} message 错误信息.
 @apiErrorExample Response 400:
     {
-        "message":"xxxxx"
+        "event":1,
+        "message":"xxxxx",
+        "data":{}
     }
 
 """"""
@@ -278,7 +377,10 @@
 
 
 @apiSuccessExample Response 200:
-    {
+{
+    "event":0,
+    "message":'',
+    "data"{
         "citylist":[{},{}...]
             /* {}的具体格式
             {
@@ -291,10 +393,13 @@
             */
         }
     }
+}
 
 @apiError {String} message 错误信息.
 @apiErrorExample Response 400:
     {
+        "event":1/2/3,
+        "data":{},
         "message":"xxxxx"
     }
 
@@ -309,13 +414,19 @@
 
 @apiSuccessExample Response 200:
     {
-        "url":"xxxxxx";
+        "event":0,
+        "message":'',
+        "data":{
+            "url":"xxxxxx";
+        }    
     }
 
 @apiError {String} message 错误信息.
 @apiErrorExample Response 400:
     {
-        "message":"xxxxx"
+        "event":1,
+        "message":"xxxxx",
+        "data":{}
     }
 
 """"""
@@ -335,16 +446,22 @@
         "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff",
         "activity_id":"",
         "finish_time":"1450527299",
-        "reached_spotlist":[{},{}...],
+        "reached_spotlist":[1,2],
         //spots 的形式参见 活动列表
     }
 
 @apiSuccessExample Response 200:
-    {}
+    {
+        "event":0,
+        "message":''
+        "data":{}
+    }
 
 @apiErrorExample Response 400:
     {
+        "event":1,
         "message":"xxxx",
+        "data":{}
     }
 """""""
 
@@ -356,17 +473,26 @@
 
 @apiParam key {String} 用户标识符
 @apiParamExample:
-    "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff"
+    {
+        "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff"
+    }
 
 @apiSuccessExample Response 200:
     {
-        "list":[{}...]
-        //活动细节看 活动列表
+        "event":0,
+        "message":'',
+        "data":{
+            "list":[{}...]
+            //活动细节看 活动列表
+        }
     }
+
 
 @apiErrorExample Response 400:
     {
+        "event":0,
         "message":"xxxx",
+        "data":{}
     }
 
 """"""
@@ -379,17 +505,23 @@
 
 @apiParam key {String} 用户标志符
 @apiParamExample:
-    "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff"
+    {"key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff"}
 
 @apiSuccessExample Response 200:
     {
-        "list":[{}...]
-        //活动细节看 活动列表
+        "event":0,
+        "messge":'',
+        "data":{
+            "list":[{}...]
+            //活动细节看 活动列表
     }
+}
 
 @apiErrorExample Response 400:
     {
+        "event":1,
         "message":"xxxx",
+        "data":{}
     }
 """"""
 
@@ -403,19 +535,54 @@
 @apiParam acticity_id {String} 活动id
 
 @apiParamExample:
-    "activity_id":"1a941e54-e22e-4f36-bec7-a472e3ee87ff"
+    {"activity_id":"1a941e54-e22e-4f36-bec7-a472e3ee87ff"}
 
 @apiSuccessExample Response 200:
     {
+        "event":0,
+        "message":'',
+        "data":{
         "person_list":[{}...]
         //{
             "name":"xxxx",
             "key":"1a941e54-e22e-4f36-bec7-a472e3ee87ff"
+            }
+        }    
+    }
+
+@apiErrorExample Response 400:
+    {
+        "event":1,
+        "message":"xxxx",
+        "data":{}
+    }
+""""""
+
+""""""
+@api {post} /api/v1/threepart/ 第三方登录
+@apiName 第三方登录
+@apiVersion 0.2.0
+
+@apiGroup User 
+
+@apiParam openid {String} 第三方id
+
+@apiParamExample:
+    {"openid":"xxxxxxx"}
+
+@apiSuccessExample Response 200:
+    {
+        "event":0,
+        "message":''
+        "data":{
+            "key":"xxxxxx",
         }
     }
 
 @apiErrorExample Response 400:
     {
+        "event":1,
         "message":"xxxx",
+        "data":{}
     }
 """"""

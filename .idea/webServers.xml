@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="93a2fa1e-7ffe-4288-a394-896963cb8707" name="Qudong" url="http://120.27.163.43">
+        <fileTransfer host="120.27.163.43" port="22" rootFolder="/root/Qudong" accessType="SFTP" password="dfe6dfdbdfccdf99df99df98df9bdf9bdf8b" username="root">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

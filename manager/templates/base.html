@@ -1,0 +1,109 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+    {% block header %}{% end %}
+</head>
+
+<style>
+.header{
+  background-color: #9f9;
+  text-align: center;
+  text-shadow: 2px 2px #999;
+  border-radius:20px 20px 20px 20px;
+  padding:20px;
+  border-bottom: 4px solid #999;
+  border-right: 2px solid #999;
+}
+.header li{
+  display:inline-block;
+  width:40%
+}
+.header a{
+  color:white;
+  font-size: 2em;
+}
+
+.content{
+  border: 2px solid #666;
+}
+.bottom{
+  border-top: 2px solid #efe;
+  text-align: center;
+}
+.bottom li{
+  width:40%;
+  display:inline-block;
+}
+.bottom a{
+  color:white;
+}
+.ul-op{
+}
+.ul-op li{
+  width:20%;
+  display:inline-block;
+}
+
+.footer {
+    background: #9f9;
+    font-size:1em;
+    position:fixed;
+    bottom: 0px;
+    left:0px;
+    width:100%;
+    height: 20px;
+    text-align: center;
+
+}
+</style>
+<body>
+    <div class='header'>
+      <ul>
+        <li><a href='/show/events/'>显示活动</a></li>
+        <li><a href='/show/users/'>显示用户</a></li>
+      </ul>
+    </div>
+    <div class='content'>
+{% block table %}
+<div class='mid'>
+  <table class='table table-hover table-striped table-bordered'>
+    <tr><td><strong>Id</strong></td><td><strong>手机</strong></td><td><strong>密码</strong></td><td>昵称</td><td>性别</td><td>操作</td></tr>
+    {% for user in users %}
+      <tr>
+      <td>{{user.id}}</td>
+      <td>{{user.phone}}</td>
+      <td>{{user.password}}</td>
+      <td>{{user.nickname}}</td>
+      <td>{{user.sex}}</td>
+      <td>
+        <ul class="ul-op">
+          <li><a>join</a></li>
+          <li><a>host</a></li>
+          <li><from action='/show/user/' method='POST'>
+            <input type='hidden' name='key'></input>
+            <input type='submit' value='Del' class='btn btn-primary btn-sm'>
+          </form></li>
+        </ul>
+      </td>
+      </tr>
+    {% end %}
+  </table>
+
+</div>
+<div class='bottom'>
+<ul>
+<li>{% if prepage %}
+        <button class='btn btn-default btn-info'><a href='/show/user/?page={{prepage}}'>prepage</a></button>
+    {% end %}
+</li>
+<li>{% if nextpage %}
+        <button class='btn btn-default btn-info'><a href='/show/user/?page={{nextpage}}'>nextpage</a></button>
+    {% end %}
+</li>
+</ul>
+</div>
+{% end %}
+    </div>
+<div class="footer " align="center"><a class="text-warning" href="/change/disclaimer/">查看/修改免责声明</a></div>
+</body>
+</html>

@@ -1,7 +1,8 @@
 from handlers import BaseHandler,JSONHandler,B64Handler
 from tornado import gen,httpclient
 from config import GEETEST,LEANCLOUD
-from hashlib import md5 
+from hashlib import md5
+from utils import encrytovalue
 import base64
 from tornado.httputil import HTTPHeaders
 import tornado.web
@@ -147,13 +148,25 @@ class LeanCloudVerifyHandler(B64Handler):
         phone = self.json_args['phone']
         code = self.json_args['verify']
         password = self.json_args['password']
+        user_id = self.json_args['key']
         res = yield self.verifySMS(code,phone)
         if not res:
-            user = User(phone,password)
-            info = UserInfo()
-            user.info.append(info)
-            self.res = user.id
-            self.session.add(user)
+            if not user_id:
+                user = User(phone,password)
+                info = UserInfo()
+                user.info.append(info)
+                self.session.add(user)
+                self.res = user.id
+            else:
+                user = self.session.query(User).get(user_id)
+                if user:
+                    user.phone = phone
+                    user.password = encrytovalue(password)
+                    self.res = user.id
+                    self.session.merge(user)
+                else:
+                    self.write_error("第三方id 没有找到",code=400)
+                    return
             self.session.commit()
             self.write_success()
         else:

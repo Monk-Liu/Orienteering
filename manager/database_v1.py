@@ -12,8 +12,7 @@ from utils import encrytovalue
 
 
 def Redis():
-    #return redis.Redis('localhost',6379,0)
-    return
+    return redis.Redis('localhost',6379,0)
 
 engine = sqlalchemy.engine_from_config(SQLINFO)
 Base = declarative_base()
@@ -55,26 +54,14 @@ class User(Base):
     password = Column(String(50))
     info = relationship('UserInfo',backref=backref('user',uselist=False))
 
-    def __init__(self,phone=None,password=None,id=None):
-        if not id:
-            self.phone = str(phone)
-            self.id = str(uuid.uuid4())
-            self.password = encrytovalue(password)
-        else:
-            self.id = id
+    def __init__(self,phone,password):
+        self.phone = str(phone)
+        self.id = str(uuid.uuid4())
+        self.password = encrytovalue(password)
 
     def __repr__(self):
         return "<User (phone='%s',id='%s')"%(self.phone,self.id)
 
-class OAuthor(Base):
-    __tablename__ = 'OAuthor'
-
-    id = Column(String(50));
-    openid = Column(String(70),primary_key=True)
-
-    def __init__(self,id):
-        self.openid = id
-        self.id = str(uuid.uuid4())
 
 class UserInfo(Base):
     __tablename__ = 'userinfo'
@@ -84,11 +71,8 @@ class UserInfo(Base):
     nickname = Column(String(60))
     img_url = Column(String(3000))
     #img_url 没有做短url的必要吗？
-    birthday = Column(String(60))
+    age = Column(Integer)
     sex = Column(Integer)
-    height = Column(Integer)
-    weight = Column(Integer)
-    area = Column(String(30))
     #so what the lambda used for? http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#one-to-one
     join_event = relationship('UserEvent',
                               backref='the_user',
@@ -96,17 +80,11 @@ class UserInfo(Base):
                               )
     host_event = relationship('Event',backref='hoster',passive_deletes=True)
 
-    def __init__(self,nickname='匿名',img_url='http://120.27.163.43:8001/static/common.jpg',sex=1,birthday='1996-06-19',height=None,weight=None,area=""):
+    def __init__(self,nickname='匿名',img_url='/static/common.jpg',sex=1,age=20):
         self.nickname = nickname
         self.img_url = img_url
         self.sex = sex
-        self.birthday = birthday
-        self.area = area
-        if height:
-            self.height = height
-        else:
-            self.height = 170 if self.sex else 165
-        self.weight = weight if weight else 60 if self.sex else 50
+        self.age = age
 
     '''
     def change_info(self,nickname,img_url,sex,age):
@@ -125,7 +103,7 @@ class Event(Base):
     loc_y = Column(Float)
     loc_province = Column(String(20))
     loc_distract = Column(String(1000))
-    loc_city = Column(String(30))
+    loc_city = Column(Integer)
     loc_road = Column(String(400))
     desc = Column(Text)  
     person_limit = Column(Integer)
@@ -145,7 +123,7 @@ class Event(Base):
     def __init__(self,title=None,desc=None,start_time=None,
                  during_time=60,loc_x=None,loc_y=None,
                  loc_province=None,person_limit=50,
-                c_distract=None,loc_road=None,loc_city=None,
+                loc_distract=None,loc_road=None,loc_city=None,
                  logo=None,host=None,type=0):
         self.id = str(uuid.uuid4())
         self.title      = title

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<title>队伍详细信息</title>
+{% end %}
+
+{% block table %}
+<div class='mid'>
+  <table class="info-content table table-hover table-striped table-bordered">
+    <tr><td>名称：</td><td>{{team["name"]}}</td></tr>
+      <tr><td>口号：</td><td>{{team["slogan"]}}</td></tr>
+      <tr><td>紧急联系人：</td><td>{{team["urgent_contact"]}}</td></tr>
+      <tr><td>紧急联系人电话:</td><td>{{team["urgent_phone"]}}</td></tr>
+      <tr><td>score</td><td>{{team["score"]}}</td></tr>
+      <tr><td>成员</td><td><table class="table table-hover table-striped table-bordered">
+        {% for member in team["members"]%}
+        <tr><td>姓名</td><td>{{member["name"]}}</td></tr>
+        <tr><td>身份证：</td><td>{{member["idcard"]}}</td></tr>
+        <tr><td>电话</td><td>{{member["phone"]}}</td></tr>
+        <tr><td>性别</td><td>{% if member["gender"]%}男{% else %}女{% end %}</td></tr>
+        {% end %}
+      <tr></tr>
+      </table></td></tr>
+      <tr><td>完成情况</td><td><table class="info-content table table-hover table-striped table-bordered">
+      <tr><td>id</td><td>信息</td><td>时间</td></tr>
+      {% for point in team['points'] %}
+      <tr><td>{{ point["id"] }}</td><td>{{ point["message"] }}</td><td>{{ point["time"]}}</td></tr>
+      {% end %}
+      </table></td></tr>
+      <tr><td align="center"  colspan="2"><form action="/show/team/detail/" method="POST">
+              <input type="hidden" name="team_id" value="{{ team['id'] }}"></input>
+              <input type="text" name="score" placeholder="modify the score"></input>
+              <input type="submit" value="修改成绩" class="btn btn-primary btn-sm">
+          </form></td></tr>
+  </table>
+</div>
+<div class='bottom'>
+
+</div>
+{% end %}

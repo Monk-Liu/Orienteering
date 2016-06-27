@@ -19,7 +19,7 @@
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{}",
+          "content": "{\n    \"event\":0,\n    \"message\":\"\",\n    \"data\":{\n        \"id\":\"xxxxxxxxxxxxxxxxxxxxxxxx\"\n    }\n}",
           "type": "json"
         }
       ]
@@ -40,8 +40,56 @@
       },
       "examples": [
         {
-          "title": "Response 400:",
-          "content": "{\n    \"message\":\"错误信息（...）\"\n}",
+          "title": "Response 200:",
+          "content": "{\n    \"event\":1/2/3,\n    \"message\":\"错误信息（...）\",\n    \"data\":{}\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
+    "url": "/activity/add/",
+    "title": "修改活动",
+    "name": "ChangeActivity",
+    "version": "0.2.0",
+    "group": "Activities",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Resquest-Example:",
+          "content": "{\n    \"id\":\"xxxxxxxxxxxxxx\"//活动id\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"name\":\"华科僵尸跑\",\n    \"person_limit\":50,\n    \"start_time\":\"1450527299\",\n    \"end_time\":\"1450527299\"(分钟),\n    \"description\":\"xxxxxxxxxxxx\"\n    \"spotlist\":[{},{},{}...]，\n    \"loc_x\":10.0,\n    \"loc_y\":10.0,\n    \"loc_province\":\"湖北\",\n    \"loc_road\":\"xxx\",\n    \"loc_city\":\"xxx\",\n    \"logo\":\"\" //多了logo字段\n    //关于 spotlist 里面的{}\n    /*{ \"x\":120.00,\n        \"y\":40.00,\n       \"type\":1,\n       \"radius\":100,\n       \"message\":\"xxxxx\",\n       \"order\":1,\n      }*/\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response 200:",
+          "content": "{\n    \"event\":0,\n    \"message\":\"\",\n    \"data\":{\n        \"id\":\"xxxxxxxxxxxxxxxxxxxxx\"\n    }\n\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/api2.py",
+    "groupTitle": "Activities",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "message",
+            "description": "<p>出错信息</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response 200:",
+          "content": "{\n    \"event\":1/2/3,\n    \"message\":\"错误信息（...）\",\n    \"data\":{}\n}",
           "type": "json"
         }
       ]
@@ -81,7 +129,7 @@
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "\"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n\"activity_id\":\"d5323e98-65f8-435b-a889-0c289f5835cb\"",
+          "content": "{    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"activity_id\":\"d5323e98-65f8-435b-a889-0c289f5835cb\",\n}",
           "type": "json"
         }
       ]
@@ -90,7 +138,7 @@
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{}",
+          "content": "{\n    \"event\":0,\n    \"message\":'',\n    \"data\":{}\n}",
           "type": "json"
         }
       ]
@@ -111,8 +159,8 @@
       },
       "examples": [
         {
-          "title": "Response 400:",
-          "content": "{\n    \"message\":\"错误信息（...）\"\n}",
+          "title": "Response 200:",
+          "content": "{\n    \"event\":1/2/3,\n    \"message\":\"错误信息（...）\",\n    \"data\":{}\n}",
           "type": "json"
         }
       ]
@@ -138,7 +186,7 @@
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{\n    \"list\":[{},{}...]\n    /*{\n        \"name\":\"华科僵尸跑\",\n        \"id\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n        \"person_limit\":50,\n        \"person_current\":20,\n        \"start_time\":\"1450527299\",\n        \"end_time\":\"1450527299\"(分钟),\n        \"description\":\"xxxxxxxxxxxx\"\n        \"spotlist\":[{},{},{}...]，\n        \"loc_x\":10.0,\n        \"loc_y\":10.0,\n        \"loc_province\":\"湖北\",\n        \"loc_road\":\"xxx\",\n        \"loc_city\":\"xxx\",\n        \"type\":0(普通)/1(hot)\n    }*/\n    /*\n    {\n        \"name\":\"xxx\",\n        \"user_key\": \"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    }\n    */\n}",
+          "content": "{\n    \"event\":0,\n    \"message\":\"\",\n    \"data\":{\n        \"list\":[{},{}...]\n        /*{\n            \"name\":\"华科僵尸跑\",\n            \"id\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n            \"person_limit\":50,\n            \"person_current\":20,\n            \"start_time\":\"1450527299\",\n            \"end_time\":\"1450527299\"(分钟),\n            \"description\":\"xxxxxxxxxxxx\"\n            \"spotlist\":[{},{},{}...]，\n            \"loc_x\":10.0,\n            \"loc_y\":10.0,\n            \"loc_province\":\"湖北\",\n            \"loc_road\":\"xxx\",\n            \"loc_city\":\"xxx\",\n            \"type\":0(普通)/1(hot)\n        }*/\n}",
           "type": "json"
         }
       ]
@@ -159,8 +207,8 @@
       },
       "examples": [
         {
-          "title": "Response 400:",
-          "content": "{\n    \"message\":\"错误信息（...）\"\n}",
+          "title": "Response 200:",
+          "content": "{\n    \"event\":1/2/3,\n    \"message\":\"错误信息（...）\",\n    \"data\":{}\n}",
           "type": "json"
         }
       ]
@@ -187,7 +235,7 @@
       "examples": [
         {
           "title": ":",
-          "content": "\"activity_id\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\"",
+          "content": "{\"activity_id\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\"}",
           "type": "json"
         }
       ]
@@ -196,7 +244,7 @@
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{\n    \"person_list\":[{}...]\n    //{\n        \"name\":\"xxxx\",\n        \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\"\n    }\n}",
+          "content": "{\n    \"event\":0,\n    \"message\":'',\n    \"data\":{\n    \"person_list\":[{}...]\n    //{\n        \"name\":\"xxxx\",\n        \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\"\n        }\n    }    \n}",
           "type": "json"
         }
       ]
@@ -205,54 +253,7 @@
       "examples": [
         {
           "title": "Response 400:",
-          "content": "{\n    \"message\":\"xxxx\",\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "api/api2.py",
-    "groupTitle": "Activities"
-  },
-  {
-    "type": "get",
-    "url": "/activity/joined/",
-    "title": "用户参加的活动",
-    "name": "__________",
-    "version": "0.2.0",
-    "group": "Activities",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "optional": false,
-            "field": "key",
-            "description": "<p>{String} 用户标志符</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": ":",
-          "content": "\"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\"",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Response 200:",
-          "content": "{\n    \"list\":[{}...]\n    //活动细节看 活动列表\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Response 400:",
-          "content": "{\n    \"message\":\"xxxx\",\n}",
+          "content": "{\n    \"event\":1,\n    \"message\":\"xxxx\",\n    \"data\":{}\n}",
           "type": "json"
         }
       ]
@@ -281,7 +282,7 @@
       "examples": [
         {
           "title": ":",
-          "content": "\"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\"",
+          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\"\n}",
           "type": "json"
         }
       ]
@@ -290,7 +291,7 @@
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{\n    \"list\":[{}...]\n    //活动细节看 活动列表\n}",
+          "content": "{\n    \"event\":0,\n    \"message\":'',\n    \"data\":{\n        \"list\":[{}...]\n        //活动细节看 活动列表\n    }\n}",
           "type": "json"
         }
       ]
@@ -299,7 +300,54 @@
       "examples": [
         {
           "title": "Response 400:",
-          "content": "{\n    \"message\":\"xxxx\",\n}",
+          "content": "{\n    \"event\":0,\n    \"message\":\"xxxx\",\n    \"data\":{}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/api2.py",
+    "groupTitle": "Activities"
+  },
+  {
+    "type": "get",
+    "url": "/activity/joined/",
+    "title": "用户参加的活动",
+    "name": "__________",
+    "version": "0.2.0",
+    "group": "Activities",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "key",
+            "description": "<p>{String} 用户标志符</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": ":",
+          "content": "{\"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response 200:",
+          "content": "    {\n        \"event\":0,\n        \"messge\":'',\n        \"data\":{\n            \"list\":[{}...]\n            //活动细节看 活动列表\n    }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Response 400:",
+          "content": "{\n    \"event\":1,\n    \"message\":\"xxxx\",\n    \"data\":{}\n}",
           "type": "json"
         }
       ]
@@ -345,7 +393,7 @@
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{}",
+          "content": "{\n    \"event\":0,\n    \"message\":'',\n    \"data\":{}\n}",
           "type": "json"
         }
       ]
@@ -365,7 +413,7 @@
       "examples": [
         {
           "title": "Response 400:",
-          "content": "{\n    \"message\":\"xxxxx\"\n}",
+          "content": "{\n    \"event\":1,\n    \"message\":\"xxxxx\",\n    \"data\":{}\n}",
           "type": "json"
         }
       ]
@@ -412,7 +460,7 @@
       "examples": [
         {
           "title": ":",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"activity_id\":\"\",\n    \"finish_time\":\"1450527299\",\n    \"reached_spotlist\":[{},{}...],\n    //spots 的形式参见 活动列表\n}",
+          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    \"activity_id\":\"\",\n    \"finish_time\":\"1450527299\",\n    \"reached_spotlist\":[1,2],\n    //spots 的形式参见 活动列表\n}",
           "type": "json"
         }
       ]
@@ -421,7 +469,7 @@
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{}",
+          "content": "{\n    \"event\":0,\n    \"message\":''\n    \"data\":{}\n}",
           "type": "json"
         }
       ]
@@ -430,7 +478,7 @@
       "examples": [
         {
           "title": "Response 400:",
-          "content": "{\n    \"message\":\"xxxx\",\n}",
+          "content": "{\n    \"event\":1,\n    \"message\":\"xxxx\",\n    \"data\":{}\n}",
           "type": "json"
         }
       ]
@@ -449,7 +497,7 @@
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{\n    \"citylist\":[{},{}...]\n        /* {}的具体格式\n        {\n            \"province_name\":\"xxx\",\n            \"cities\":[{\"code\":\"0001\",\"city\":\"city 1\"},\n                      {\"code\":\"0002\",\"city\":\"city 2\"},\n                      ...\n                     ]\n        }\n        */\n    }\n}",
+          "content": "{\n    \"event\":0,\n    \"message\":'',\n    \"data\"{\n        \"citylist\":[{},{}...]\n            /* {}的具体格式\n            {\n                \"province_name\":\"xxx\",\n                \"cities\":[{\"code\":\"0001\",\"city\":\"city 1\"},\n                          {\"code\":\"0002\",\"city\":\"city 2\"},\n                          ...\n                         ]\n            }\n            */\n        }\n    }\n}",
           "type": "json"
         }
       ]
@@ -469,7 +517,7 @@
       "examples": [
         {
           "title": "Response 400:",
-          "content": "{\n    \"message\":\"xxxxx\"\n}",
+          "content": "{\n    \"event\":1/2/3,\n    \"data\":{},\n    \"message\":\"xxxxx\"\n}",
           "type": "json"
         }
       ]
@@ -488,7 +536,7 @@
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{\n    \"url\":\"xxxxxx\";\n}",
+          "content": "{\n    \"event\":0,\n    \"message\":'',\n    \"data\":{\n        \"url\":\"xxxxxx\";\n    }    \n}",
           "type": "json"
         }
       ]
@@ -508,7 +556,7 @@
       "examples": [
         {
           "title": "Response 400:",
-          "content": "{\n    \"message\":\"xxxxx\"\n}",
+          "content": "{\n    \"event\":1,\n    \"message\":\"xxxxx\",\n    \"data\":{}\n}",
           "type": "json"
         }
       ]
@@ -565,7 +613,7 @@
       "examples": [
         {
           "title": "Response (success) 200:",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\"\n}",
+          "content": "    {\n        \"event\":0,\n        \"message\":''\n        \"data\":{\n        \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\"\n    }\n}",
           "type": "json"
         }
       ]
@@ -585,7 +633,107 @@
       "examples": [
         {
           "title": "Response (test) 400:",
-          "content": "{\n    \"message\":\"错误信息(....)\"\n}",
+          "content": "{\n    \"event\":1/2/3,\n    \"message\":\"错误信息(....)\",\n    \"data\":{}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/api2.py",
+    "groupTitle": "User"
+  },
+  {
+    "type": "post",
+    "url": "/api/v1/threepart/",
+    "title": "第三方登录",
+    "name": "_____",
+    "version": "0.2.0",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "openid",
+            "description": "<p>{String} 第三方id</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": ":",
+          "content": "{\"openid\":\"xxxxxxx\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response 200:",
+          "content": "{\n    \"event\":0,\n    \"message\":''\n    \"data\":{\n        \"key\":\"xxxxxx\",\n    }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Response 400:",
+          "content": "{\n    \"event\":1,\n    \"message\":\"xxxx\",\n    \"data\":{}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/api2.py",
+    "groupTitle": "User"
+  },
+  {
+    "type": "POST",
+    "url": "/user/detail/:key/",
+    "title": "修改用户信息",
+    "name": "______",
+    "version": "0.2.0",
+    "group": "User",
+    "permission": [
+      {
+        "name": "admin,本人"
+      }
+    ],
+    "parameter": {
+      "examples": [
+        {
+          "title": "Response:",
+          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",  \n    \"nickname\":\"panda\",\n    \"sex\":\"male\",\n    \"birthday\":\"2015-02-11\",\n    \"avater\":\"http://run.monkliu.me:8888/staitc/1.jpg\"\n    \"height\":170,\n    \"weight\":60,\n    //avater 是客户端调用七牛后图片在七牛的url\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response 200:",
+          "content": "{\n    \"event\":0,\n    \"message\":\"\",\n    \"data\":{}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "message",
+            "description": "<p>错误信息.</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response 400:",
+          "content": "{\n    \"event\":1/2/3,\n    \"message\":\"错误信息（用户不存在/权限不够）\"\n    \"data\":{}\n}",
           "type": "json"
         }
       ]
@@ -622,7 +770,7 @@
       "examples": [
         {
           "title": "Response 200:",
-          "content": "{\n    \"nickname\":\"panda\",\n    \"sex\":\"male\",\n    \"birthday\":\"2015-02-11\"\n    \"image\":\"http://run.monkliu.me:8888/static/1.jpg\",\n}",
+          "content": "    {\n        \"event\":0,\n        \"message\":'',\n        \"data\":{\n            \"nickname\":\"panda\",\n            \"sex\":1,# 1 for  male and 0 for female\n            \"birthday\":\"2015-02-11\"\n            \"avater\":\"http://run.monkliu.me:8888/static/1.jpg\",\n            \"height\":170,\n            \"weight\":60,\n    }\n}",
           "type": "json"
         }
       ]
@@ -642,60 +790,7 @@
       "examples": [
         {
           "title": "Response 400:",
-          "content": "{\n    \"message\":\"错误信息（...）\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "api/api2.py",
-    "groupTitle": "User"
-  },
-  {
-    "type": "POST",
-    "url": "/user/detail/:key/",
-    "title": "修改用户信息",
-    "name": "______",
-    "version": "0.2.0",
-    "group": "User",
-    "permission": [
-      {
-        "name": "admin,本人"
-      }
-    ],
-    "parameter": {
-      "examples": [
-        {
-          "title": "Response:",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",  \n    \"nickname\":\"panda\",\n    \"sex\":\"male\",\n    \"birthday\":\"2015-02-11\",\n    \"image\":\"http://run.monkliu.me:8888/staitc/1.jpg\"\n    //image 是客户端调用七牛后图片在七牛的url\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Response 200:",
-          "content": "{}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "message",
-            "description": "<p>错误信息.</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response 400:",
-          "content": "{\n    \"message\":\"错误信息（用户不存在/权限不够）\"\n}",
+          "content": "{\n    \"event\":1,\n    \"message\":\"错误信息（...）\",\n    \"data\":{}\n}",
           "type": "json"
         }
       ]
@@ -734,7 +829,7 @@
       "examples": [
         {
           "title": "Response (success) 200:",
-          "content": "{}",
+          "content": "{\n    \"event\":0,\n    \"message\":\"\",\n    \"data\":{}\n}",
           "type": "json"
         }
       ]
@@ -754,7 +849,7 @@
       "examples": [
         {
           "title": "Response (error) 400:",
-          "content": "{\n    \"message\":\"错误信息（...）\",\n}",
+          "content": "{\n    \"event\":1/2/3,\n    \"message\":\"错误信息（...）\",\n    \"data\":{}\n}",
           "type": "json"
         }
       ]
@@ -818,7 +913,7 @@
       "examples": [
         {
           "title": "Response (success) 200:",
-          "content": "{\n    \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n}",
+          "content": "    {\n        \"event\":0,\n        \"message\":'',\n        \"data\":{\n            \"key\":\"1a941e54-e22e-4f36-bec7-a472e3ee87ff\",\n    }\n}",
           "type": "json"
         }
       ]
@@ -827,7 +922,7 @@
       "examples": [
         {
           "title": "Response (success) 400:",
-          "content": "{\n    \"message\":\"错误信息（...）\"\n}",
+          "content": "{\n    \"event\":1,\n    \"message\":\"错误信息（...）\",\n    \"data\":{},\n}",
           "type": "json"
         }
       ]

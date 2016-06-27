@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<title>活动中的点</title>
+{% end %}
+
+{% block table %}
+<div class='mid'>
+  <table class='table table-hover table-striped table-bordered'>
+    <tr><td><strong>Id</strong></td><td><strong>x</strong></td><td><strong>y</strong></td><td><strong>message</strong></td><td><strong>通关口令</strong></td><td><strong>改口令</strong></td></tr
+    {% for point in points %}
+      <tr>
+      <td>{{point["id"]}}</td>
+      <td>{{point["x"]}}</td>
+      <td>{{point["y"]}}</td>
+      <td>{{point["radius"]}}</td>
+      <td>{{point["pwd"]}}</td>
+      <td>
+        <ul class="ul-op">
+          <li><form action='/show/points/' method='POST'>
+            <input type='hidden' name='id' value="{{point["id"]}}"></input>
+            <input type="text" name="pwd" placeholder="更改的密码"></input>
+            <input type='submit' value='更改密码' class='btn btn-primary btn-sm'>
+          </form></li>
+        </ul>
+      </td>
+      </tr>
+    {% end %}
+  </table>
+
+</div>
+<div class='bottom'>
+
+</div>
+{% end %}
